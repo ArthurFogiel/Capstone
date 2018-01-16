@@ -1,0 +1,11 @@
+# Ignore vs folder
+.vs/
+
+#ignore bin folder
+StockScreener/bin/
+
+#ignore Obj folder
+StockScreener/obj/
+
+#ignore user settings file
+*.suo
