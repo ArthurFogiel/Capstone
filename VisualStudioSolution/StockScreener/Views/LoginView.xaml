@@ -25,57 +25,11 @@
                          VerticalAlignment="Stretch" VerticalContentAlignment="Center"/>
             </StackPanel>
             <StackPanel Grid.Row="1" Margin="0,10,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Content="Log In" Width="100" Height="30" FontSize="16"
-                        Command="{Binding Path=LoginCommand}" HorizontalAlignment="Center" Padding="5" FontWeight="Bold">
-                    <Button.Style>
-                        <Style TargetType="{x:Type Button}">
-                            <Setter Property="Margin" Value="2" />
-                            <Setter Property="BorderBrush" Value="{StaticResource ButtonNormalBorder}" />
-                            <Setter Property="BorderThickness" Value="1" />
-                            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
-                            <Setter Property="Background" Value="DarkGoldenrod"/>
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="{x:Type Button}">
-                                        <Border CornerRadius="15" Background="{TemplateBinding Background}">
-                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                        </Border>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="LightGoldenrodYellow"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
+                <Button Content="Log In" Width="100"
+                        Command="{Binding Path=LoginCommand}" HorizontalAlignment="Center" Style="{StaticResource GoldButtonStyle}">
                 </Button>
-                <Button Content="Create User" Width="100" Margin="10,0,0,0" Height="30" FontSize="16"
-                        Command="{Binding Path=CreateUser}" HorizontalAlignment="Center" Padding="5" FontWeight="Bold">
-                    <Button.Style>
-                        <Style TargetType="{x:Type Button}">
-                            <Setter Property="Margin" Value="2" />
-                            <Setter Property="BorderBrush" Value="{StaticResource ButtonNormalBorder}" />
-                            <Setter Property="BorderThickness" Value="1" />
-                            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
-                            <Setter Property="Background" Value="DarkGoldenrod"/>
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="{x:Type Button}">
-                                        <Border CornerRadius="15" Background="{TemplateBinding Background}">
-                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                        </Border>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="LightGoldenrodYellow"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
+                <Button Content="Create User" Width="100" Margin="10,0,0,0"
+                        Command="{Binding Path=CreateUser}" HorizontalAlignment="Center"  Style="{StaticResource GoldButtonStyle}">
                 </Button>
             </StackPanel>
         </Grid>
