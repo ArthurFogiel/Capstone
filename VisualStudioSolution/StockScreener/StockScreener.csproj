@@ -74,7 +74,7 @@
     </ApplicationDefinition>
     <Compile Include="CommandHandler.cs" />
     <Compile Include="Interfaces\IMyCoolInterface.cs" />
-    <Compile Include="Interfaces\Interface1.cs" />
+    <Compile Include="Interfaces\IStock.cs" />
     <Compile Include="Interfaces\ISettings.cs" />
     <Compile Include="Interfaces\IStockScreenerViewModel.cs" />
     <Compile Include="Interfaces\ILoginViewModel.cs" />
@@ -82,6 +82,7 @@
     <Compile Include="Interfaces\IUser.cs" />
     <Compile Include="Interfaces\MyCoolClass.cs" />
     <Compile Include="Model\Notifyable.cs" />
+    <Compile Include="Model\Settings.cs" />
     <Compile Include="Model\Stock.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Model\UserInfoService.cs" />
@@ -90,6 +91,12 @@
     <Compile Include="ViewModel\ScreenerViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="Locator.cs" />
+    <Compile Include="Views\Controls\StocksDataGrid.xaml.cs">
+      <DependentUpon>StocksDataGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\ScreenerParameters.xaml.cs">
+      <DependentUpon>ScreenerParameters.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Converters\NullToVisibilityCollapsed.cs" />
     <Compile Include="Views\Converters\NullToVisibilityVisible.cs" />
     <Compile Include="Views\ScreenerView.xaml.cs">
@@ -110,6 +117,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\Controls\StocksDataGrid.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Controls\ScreenerParameters.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Resources\ResourcesDictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -1,9 +1,6 @@
 ﻿using System.Windows;
 using StockScreener.Interfaces;
-using System.Net;
 using System.Collections.Generic;
-using System.Linq;
-
 namespace StockScreener.Model
 {
     /// <summary>

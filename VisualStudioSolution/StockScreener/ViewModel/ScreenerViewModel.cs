@@ -1,4 +1,6 @@
-﻿using GalaSoft.MvvmLight;
+﻿using System.Collections.ObjectModel;
+using System.Windows.Input;
+using GalaSoft.MvvmLight;
 using StockScreener.Interfaces;
 
 namespace StockScreener.ViewModel
@@ -14,6 +16,7 @@ namespace StockScreener.ViewModel
         private readonly IUserInfoService _userService;
         private readonly IStockService _stockService;
 
+        [GalaSoft.MvvmLight.Ioc.PreferredConstructor]
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
@@ -23,10 +26,42 @@ namespace StockScreener.ViewModel
             _stockService = stockService;
         }
 
+        /// <summary>
+        /// This constructor is Just for designer for showing the UI elements
+        /// </summary>
+        public ScreenerViewModel()
+        {
+        }
+
         public IUserInfoService UserInfoService
         {
             get { return _userService; }
         }
+
+        public ObservableCollection<IStock> FilteredStocks
+        {
+            get
+            {
+                //TODO
+                return null;
+            }
+        }
+
+        public ObservableCollection<IStock> WatchedStocks
+        {
+            get
+            {
+                //TODO
+                return null;
+            }
+        }
+
+        //todo
+        public ICommand SaveFavorite => throw new System.NotImplementedException();
+
+        public ICommand LoadFavorite => throw new System.NotImplementedException();
+
+        public ICommand Apply => throw new System.NotImplementedException();
 
         ////public override void Cleanup()
         ////{

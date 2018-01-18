@@ -12,7 +12,6 @@
         <!--Global View Model Locator-->
         <stockscreener:Locator x:Key="Locator"
                              d:IsDataSource="True" />
-        
     </Application.Resources>
     
 </Application>
