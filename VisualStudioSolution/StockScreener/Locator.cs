@@ -27,7 +27,7 @@ namespace StockScreener
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
             //Register Services interfaces to implementation
-            SimpleIoc.Default.Register<IStockService, StockService>();
+            SimpleIoc.Default.Register<IStockService, StockService>(true);
             SimpleIoc.Default.Register<IUserInfoService, UserInfoService>();
 
             //Register View Models interfaces to implementations

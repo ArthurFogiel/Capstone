@@ -38,6 +38,9 @@ namespace StockScreener.ViewModel
             get { return _userService; }
         }
 
+        /// <summary>
+        /// The filtered list of stocks using the logged in users settings and the full list of stocks from the model
+        /// </summary>
         public ObservableCollection<IStock> FilteredStocks
         {
             get
@@ -46,7 +49,9 @@ namespace StockScreener.ViewModel
                 return null;
             }
         }
-
+        /// <summary>
+        /// The list of stocks from the users watch list
+        /// </summary>
         public ObservableCollection<IStock> WatchedStocks
         {
             get

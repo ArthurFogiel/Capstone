@@ -73,14 +73,12 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="CommandHandler.cs" />
-    <Compile Include="Interfaces\IMyCoolInterface.cs" />
     <Compile Include="Interfaces\IStock.cs" />
     <Compile Include="Interfaces\ISettings.cs" />
     <Compile Include="Interfaces\IStockScreenerViewModel.cs" />
     <Compile Include="Interfaces\ILoginViewModel.cs" />
     <Compile Include="Interfaces\IUserInfoService.cs" />
     <Compile Include="Interfaces\IUser.cs" />
-    <Compile Include="Interfaces\MyCoolClass.cs" />
     <Compile Include="Model\Notifyable.cs" />
     <Compile Include="Model\Settings.cs" />
     <Compile Include="Model\Stock.cs" />
@@ -168,6 +166,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Views\Resources\Gold-Mining1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="tickers_cap.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

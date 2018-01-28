@@ -9,7 +9,7 @@ namespace StockScreener.Interfaces
         /// <summary>
         /// Ticker symbol
         /// </summary>
-        string Ticker { get; set; }
+        string Ticker { get;}
         /// <summary>
         /// Market Cap in millions
         /// </summary>
@@ -27,8 +27,9 @@ namespace StockScreener.Interfaces
         /// </summary>
         float CurrentVolume { get; set; }
         /// <summary>
-        /// Is the stock marked to be watched?
+        /// Passin in a stock, update this stocks values from the input
         /// </summary>
-        bool IsWatching { get; set; }
+        /// <param name="stock"></param>
+        void UpdateFromStock(IStock stock);
     }
 }

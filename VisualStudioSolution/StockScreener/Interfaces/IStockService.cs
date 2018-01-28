@@ -1,15 +1,14 @@
 ﻿
+using System.Collections.Generic;
+using System.ComponentModel;
+
 namespace StockScreener.Interfaces
 {
-    public interface IStockService
+    public interface IStockService: INotifyPropertyChanged
     {
-        IStock GetStock(string ticker);
-
         /// <summary>
-        /// Refresh the values of a stock
+        /// List of all stocks that are constantly updated
         /// </summary>
-        /// <param name="stock"></param>
-        void UpdateStock(IStock stock);
-
+        List<IStock> Stocks {get;}
     }
 }

@@ -78,14 +78,7 @@ namespace StockScreener.Model
             //}
             //return false;
 
-            //////THIS IS JUST TESTING ON HOW TO GET A STOCK VALUE.  WANTED TO DO IN A PLACE I KNEW WOULD GET CALLED
-            ////using (var httpClient = new WebClient())
-            ////{
-
-            ////    var json = httpClient.DownloadString("https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=MSFT&interval=15min&outputsize=full&apikey=demo");
-
-            ////    // Now parse with JSON.Net
-            ////}
+           
 
             //return true;
         }
