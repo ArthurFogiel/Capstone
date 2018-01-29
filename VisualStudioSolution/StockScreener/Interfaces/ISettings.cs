@@ -1,6 +1,9 @@
 ﻿
 namespace StockScreener.Interfaces
 {
+    /// <summary>
+    /// Enum for selecting a units for the market cap
+    /// </summary>
     public enum MarketCapUnitsEnum
     {
         Millions,

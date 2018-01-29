@@ -13,9 +13,5 @@ namespace StockScreener.Views
         {
             InitializeComponent();
         }
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            ((Interfaces.ILoginViewModel)DataContext).UserInfoService.LogOffUser();
-        }
     }
 }

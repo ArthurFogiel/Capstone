@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
@@ -15,13 +14,13 @@ namespace StockScreener.ViewModel
     /// </summary>
     public class LoginViewModel : ViewModelBase, ILoginViewModel
     {
-
+        private IUserInfoService _userService;
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
         public LoginViewModel(IUserInfoService userService)
         {
-            UserInfoService = userService;
+            _userService = userService;
         }
 
         string _userName="";
@@ -37,18 +36,7 @@ namespace StockScreener.ViewModel
             }
         }
 
-        private IUserInfoService _userService;
-        /// <summary>
-        /// Reference to the UserInfo Service
-        /// </summary>
-        public IUserInfoService UserInfoService
-        {
-            get { return _userService; }
-            private set
-            {
-                Set(ref _userService, value);
-            }
-        }
+
 
         private ICommand _loginCommand;
         /// <summary>
@@ -75,7 +63,7 @@ namespace StockScreener.ViewModel
         public void LoginPressed()
         {
             Debug.WriteLine("I ENTERED THE LOGIN PRESSED");
-            if (!UserInfoService.LogInUser(UserName))
+            if (!_userService.LogInUser(UserName))
             {
                 MessageBox.Show("Failed to log in!  Create a new user or enter an existing username");
             }
