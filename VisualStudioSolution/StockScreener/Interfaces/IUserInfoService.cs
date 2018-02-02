@@ -17,6 +17,15 @@ namespace StockScreener.Interfaces
         bool LogInUser(string user);
 
         /// <summary>
+        /// Create new user
+        /// False if already exists
+        /// Adds to user list and saves to file
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        bool CreateUser(string user);
+
+        /// <summary>
         /// Remove the logged in user reference
         /// </summary>
         void LogOffUser();
