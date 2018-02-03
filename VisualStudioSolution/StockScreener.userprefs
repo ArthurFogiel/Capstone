@@ -1,0 +1,15 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workbench ActiveDocument="StockScreener/ViewModel/LoginViewModel.cs">
+    <Files>
+      <File FileName="StockScreener/Interfaces/ILoginViewModel.cs" Line="29" Column="1" />
+      <File FileName="StockScreener/Interfaces/ISettings.cs" Line="1" Column="1" />
+      <File FileName="StockScreener/ViewModel/LoginViewModel.cs" Line="1" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+</Properties>
