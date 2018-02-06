@@ -68,6 +68,8 @@ namespace StockScreener.ViewModel
 
         public ICommand Apply => throw new System.NotImplementedException();
 
+        public ICommand LogOut => throw new System.NotImplementedException();
+
         ////public override void Cleanup()
         ////{
         ////    // Clean up if needed

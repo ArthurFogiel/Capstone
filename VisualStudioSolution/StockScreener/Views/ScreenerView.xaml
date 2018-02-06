@@ -36,7 +36,7 @@
                 </DataGrid>
             </Border>
         </StackPanel>
-        <Button DockPanel.Dock="Bottom" HorizontalAlignment="Center" Style="{StaticResource GoldButtonStyle}" Content="Log Out" Width="100" Margin="0,0,0,10" />
+        <Button DockPanel.Dock="Bottom" HorizontalAlignment="Center" Command="{Binding Path=LogOut}"  Style="{StaticResource GoldButtonStyle}" Content="Log Out" Width="100" Margin="0,0,0,10" />
         <controls:StocksDataGrid DataContext="{Binding}" Margin="10,0,10,0" DockPanel.Dock="Left"/>
     </DockPanel>
 </UserControl>

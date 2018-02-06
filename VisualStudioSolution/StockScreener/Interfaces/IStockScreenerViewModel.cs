@@ -35,5 +35,7 @@ namespace StockScreener.Interfaces
         /// </summary>
 
         ICommand Apply { get; }
+
+        ICommand LogOut { get; }
     }
 }
