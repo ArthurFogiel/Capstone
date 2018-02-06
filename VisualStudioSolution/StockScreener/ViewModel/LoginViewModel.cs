@@ -57,12 +57,13 @@ namespace StockScreener.ViewModel
         //TODO
         public ICommand CreateUser => throw new System.NotImplementedException();
 
+        public bool IsLoggedIn { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+
         /// <summary>
         /// Code called when login is pressed
         /// </summary>
         public void LoginPressed()
         {
-            Debug.WriteLine("I ENTERED THE LOGIN PRESSED");
             if (!_userService.LogInUser(UserName))
             {
                 MessageBox.Show("Failed to log in!  Create a new user or enter an existing username");

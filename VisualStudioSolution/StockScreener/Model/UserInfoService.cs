@@ -94,5 +94,14 @@ namespace StockScreener.Model
         {
             LoggedInUser = null;
         }
+
+        public bool CreateUser(string user)
+        {
+            //todo
+            //create a user and add it to the list
+            //then save the user list to file
+            //then login
+            throw new System.NotImplementedException();
+        }
     }
 }
