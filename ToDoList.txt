@@ -1,0 +1,31 @@
+
+Week 1 Development
+Should be done by end of week:
+1. Be able to create a user - Michael
+2. Be able to login/logout within an instance of the app (not saving to disk yet) -Michael
+3. Be able to query a single stock and get convert it to a stock class, tbd if our current stock or JSON class -Kathleen
+4. Make sure Applying settings makes it into the user -Art
+
+Start working on if above completed:
+1. Serialize a user/list of users to disk.
+2. Serialize a user/list of user to disk including thier settings
+3. Serialize the stocks to disk
+4. Displaying a list of stocks in the screener view.
+
+
+Week 2 Development
+Should be done
+1. Completely load/save user list and their settings to disk
+2. Completely request all stocks in the txt file and create an object from the response and keep in a list
+3. UI login/out completed.  UI Settings completed, UI center view completed
+
+Week 3 Developement
+Should be done
+1. Finish Save/Load favorites
+2. Multi threading to load stocks in parallel and at frequency update
+3. UI for watched stocks
+
+Final Week:
+1. Final Report
+2. All test cases completed
+3. All bugs flushed out.

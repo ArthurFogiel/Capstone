@@ -154,7 +154,6 @@ namespace StockScreener.Model
                 Trace.WriteLine(logMessage);
                 return;
             }
-            MarketCap = stock.MarketCap;
             CurrentPrice = stock.CurrentPrice;
             LastClosePrice = stock.LastClosePrice;
             CurrentVolume = stock.CurrentVolume;
