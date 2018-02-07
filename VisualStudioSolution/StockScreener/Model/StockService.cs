@@ -29,6 +29,9 @@ namespace StockScreener.Model
 
             //If not, use the text file to generate the list of stocks
             CreateListFromText();
+
+
+
             //start forever updating the list
             //example:
             //foreach(var stock in Stocks)

@@ -15,6 +15,7 @@ namespace StockScreener.Model
         public User(string name)
         {
             _name = name;
+            Settings = new Settings();
         }
         
         /// <summary>
@@ -47,12 +48,18 @@ namespace StockScreener.Model
                 //todo
             }
         }
+
+        private ISettings _settings;
         public ISettings Settings
         {
             get
             {
-                //todo
-                return null; 
+                return _settings;
+            }
+            private set
+            {
+                _settings = value;
+                RaisePropertyChanged();
             }
         }
     }
