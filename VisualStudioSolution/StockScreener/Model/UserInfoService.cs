@@ -97,11 +97,17 @@ namespace StockScreener.Model
 
         public bool CreateUser(string user)
         {
-            //todo
-            //create a user and add it to the list
-            //then save the user list to file
-            //then login
-            throw new System.NotImplementedException();
+            var newUser = new string User("UserName");
+            foreach (string user in _users)
+            {
+                if (newUser.ToLower() == user.ToLower())
+                {
+                    LogInUser = newUser;
+                    return false;
+                } else
+                {
+
+                }
         }
     }
 }
