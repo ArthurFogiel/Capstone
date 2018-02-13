@@ -24,7 +24,7 @@ namespace StockScreener.Model
             }
         }
 
-        private List<IUser> _users;
+        private List<IUser> _users = new List<IUser>();
         /// <summary>
         /// All available users
         /// </summary>

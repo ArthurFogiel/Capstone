@@ -54,8 +54,22 @@ namespace StockScreener.ViewModel
             }
         }
 
+        private ICommand _creatUserCommand;
+        /// <summary>
+        /// Button for creating users
+        /// </summary>
         //TODO
-        public ICommand CreateUser => throw new System.NotImplementedException();
+        public ICommand CreateUser
+        {
+            get
+            {
+                if(_creatUserCommand == null)
+                {
+                    _creatUserCommand = new CommandHandler(() => CreateUserPressed());
+                }
+                return _creatUserCommand;
+            }
+        }
 
         public bool IsLoggedIn { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
 
@@ -70,6 +84,10 @@ namespace StockScreener.ViewModel
             }
         }
 
+        public void CreateUserPressed()
+        {
+
+        }
 
 
 
