@@ -74,6 +74,10 @@ namespace StockScreener.ViewModel
 
         public ICommand LoadFavorite => throw new System.NotImplementedException();
 
+        /// <summary>
+        /// When apply is pushed, we want to refresh the FilteredStocks with only stocks from the stock service stocks list that are within
+        /// The LoggedInUser.Settings values.
+        /// </summary>
         public ICommand Apply => throw new System.NotImplementedException();
 
         public ICommand LogOut => throw new System.NotImplementedException();

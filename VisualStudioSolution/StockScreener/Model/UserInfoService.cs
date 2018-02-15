@@ -67,7 +67,13 @@ namespace StockScreener.Model
                 MessageBox.Show("BAD USER NAME: TESTING: MUST ENTER USERNAME OF \"TEST\"");
                 return false;
             }
+            //END TESTING
+
+
+
+
             ////eventually should do below to only login if we have it
+
             ////Do we have a user that matches the username
             ////Make lowercase to ignore casing
             //if(Users.Any(x=>x.Name.ToLower() == userName.ToLower()))
@@ -77,10 +83,6 @@ namespace StockScreener.Model
             //    return true;
             //}
             //return false;
-
-           
-
-            //return true;
         }
 
 
@@ -97,17 +99,19 @@ namespace StockScreener.Model
 
         public bool CreateUser(string user)
         {
-            var newUser = new string User("UserName");
-            foreach (string user in _users)
+            var newUser = new User(user);
+            foreach (var knownUser in _users)
             {
-                if (newUser.ToLower() == user.ToLower())
+                if (newUser.Name.ToLower() == knownUser.Name.ToLower())
                 {
-                    LogInUser = newUser;
+                    //User already exists in the list, return false
                     return false;
-                } else
-                {
-
                 }
+            }
+            //If we got here user does not exist in the list, add it to the users and log them in
+            Users.Add(newUser);
+            LogInUser(newUser.Name);
+            return true;
         }
     }
 }
