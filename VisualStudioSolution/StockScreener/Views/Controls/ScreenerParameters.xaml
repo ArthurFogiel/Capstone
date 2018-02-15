@@ -78,7 +78,7 @@
                     <Label Content="Max"  FontSize="15" Grid.Row="14" Grid.Column="0"/>
                     <TextBox  Grid.Row="14" Grid.Column="1" Text="{Binding Path =UserInfoService.LoggedInUser.Settings.MarketCapMax}" VerticalContentAlignment="Center"/>
 
-                    <Button  Grid.Row="16" Grid.Column="0" Content="Apply" Grid.ColumnSpan="3" Padding="5" FontSize="14" Style="{StaticResource GoldButtonStyle}"/>
+                    <Button  Grid.Row="16" Grid.Column="0" Content="Apply" Grid.ColumnSpan="3" Padding="5" Command="{Binding Path =Apply}" FontSize="14" Style="{StaticResource GoldButtonStyle}"/>
 
                     <Rectangle Grid.Row="18" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" Height="3">
                         <Rectangle.Fill>
@@ -88,7 +88,7 @@
 
                     <Button Grid.Row="20" Grid.Column="0" Grid.ColumnSpan="3" Content="Save As Favorite"  FontSize="14" Padding="5" Style="{StaticResource GoldButtonStyle}"/>
 
-                    <Button Grid.Row="22" Grid.Column="0" Grid.ColumnSpan="3" Content="Load Favorite"  FontSize="14" Padding="5" Style="{StaticResource GoldButtonStyle}"/>
+                    <Button Grid.Row="22" Grid.Column="0" Grid.ColumnSpan="3" Content="Load Favorite"  FontSize="14" Padding="5" Margin="0,0,0,15" Style="{StaticResource GoldButtonStyle}"/>
                 </Grid>
             </Border>
         </StackPanel>

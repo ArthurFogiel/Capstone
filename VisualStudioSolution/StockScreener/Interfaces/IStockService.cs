@@ -1,5 +1,6 @@
 ﻿
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 
 namespace StockScreener.Interfaces
@@ -9,6 +10,6 @@ namespace StockScreener.Interfaces
         /// <summary>
         /// List of all stocks that are constantly updated
         /// </summary>
-        List<IStock> Stocks {get;}
+        ObservableCollection<IStock> Stocks {get;}
     }
 }

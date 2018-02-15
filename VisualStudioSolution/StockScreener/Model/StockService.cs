@@ -1,11 +1,13 @@
 ﻿
 using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
 using GalaSoft.MvvmLight.Ioc;
 using StockScreener.Interfaces;
 
@@ -17,20 +19,37 @@ namespace StockScreener.Model
     /// </summary>
     public class StockService : Notifyable, IStockService
     {
+        private string stockFilePath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + "\\Screener\\Stocks.xml";
         [PreferredConstructorAttribute]
         public StockService()
         {
             //Testing: get microsoft stock
-            GetStock("MSFT");
+            //   GetStock("MSFT");
+            //
 
-            //TODO Initialize
-            //See if we have a serialized list of stocks
-            //If so load that in then iterate over them all to refresh a newer value
-
+            if (File.Exists(stockFilePath))
+            {
+                //TODO Read the file
+            }
             //If not, use the text file to generate the list of stocks
-            CreateListFromText();
+            else
+            {
+                CreateListFromText();
+            }
 
-
+            //TESTING JUST KEEP TOGGLING THE PRICE TO SEE IT MOVE
+            int count = 0;
+            Task t = Task.Factory.StartNew(() => {
+                while(true)
+                {
+                    count++;
+                    Thread.Sleep(100);
+                    foreach (var stock in Stocks)
+                    {
+                        stock.CurrentPrice = count%2 == 0? stock.CurrentPrice -1: stock.CurrentPrice+1;
+                    }
+                }
+            });
 
             //start forever updating the list
             //example:
@@ -40,53 +59,12 @@ namespace StockScreener.Model
             //}
         }
 
-        private void CreateListFromText()
-        {
-            var assembly = Assembly.GetExecutingAssembly();
-            var resourceName = "StockScreener.tickers_cap.txt";
-            var stockList = new List<IStock>();
-
-            using (Stream stream = assembly.GetManifestResourceStream(resourceName))
-            using (StreamReader reader = new StreamReader(stream))
-            {
-               
-                string line;
-                while ((line = reader.ReadLine()) != null)
-                {
-                    try
-                    {
-
-
-                        //strip out whitespace
-                        line.Replace(" ", "");
-                        var splitLine = line.Split(',');
-                        if(splitLine.Length != 2)
-                        {
-                            Trace.WriteLine("Bad parse of value: " + line);
-                            continue;
-                        }
-                        //make sure the market cap units contains B or M
-                        if (splitLine[1][splitLine[1].Length - 1] == 'B' || splitLine[1][splitLine[1].Length - 1] == 'M')
-                        {
-                            var stock = new Stock(splitLine[0], splitLine[1]);
-                            //Only dd if we don't have it already
-                            if(!stockList.Any(x=>x.Ticker == stock.Ticker))
-                                stockList.Add(new Stock(splitLine[0], splitLine[1]));
-                        }
-                    }
-                    catch(Exception e)
-                    {
-
-                    }
-                }
-            }
-            //make sure its unique
-            Stocks = stockList;
-        }
-
-        private List<IStock> _stocks;
-
-        public List<IStock> Stocks
+        #region ISTockService
+        private ObservableCollection<IStock> _stocks = new ObservableCollection<IStock>();
+        /// <summary>
+        /// List of all stocks we know about
+        /// </summary>
+        public ObservableCollection<IStock> Stocks
         {
             get
             {
@@ -98,7 +76,57 @@ namespace StockScreener.Model
                 RaisePropertyChanged();
             }
         }
-        
+
+
+
+        #endregion
+
+
+        #region Private Methods
+        private void CreateListFromText()
+        {
+            var assembly = Assembly.GetExecutingAssembly();
+            var resourceName = "StockScreener.tickers_cap.txt";
+            var stockList = new ObservableCollection<IStock>();
+
+            using (Stream stream = assembly.GetManifestResourceStream(resourceName))
+            using (StreamReader reader = new StreamReader(stream))
+            {
+
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    try
+                    {
+
+
+                        //strip out whitespace
+                        line.Replace(" ", "");
+                        var splitLine = line.Split(',');
+                        if (splitLine.Length != 2)
+                        {
+                            Trace.WriteLine("Bad parse of value: " + line);
+                            continue;
+                        }
+                        //make sure the market cap units contains B or M
+                        if (splitLine[1][splitLine[1].Length - 1] == 'B' || splitLine[1][splitLine[1].Length - 1] == 'M')
+                        {
+                            var stock = new Stock(splitLine[0], splitLine[1]);
+                            //Only dd if we don't have it already
+                            if (!stockList.Any(x => x.Ticker == stock.Ticker))
+                                stockList.Add(new Stock(splitLine[0], splitLine[1]));
+                        }
+                    }
+                    catch (Exception e)
+                    {
+
+                    }
+                }
+            }
+            //make sure its unique
+             Stocks = stockList;
+        }
+
 
         //TODO
         private IStock GetStock(string ticker)
@@ -128,5 +156,7 @@ namespace StockScreener.Model
             //populate the stock with the result
             stock.UpdateFromStock(retrievedStock);
         }
+        #endregion
+
     }
 }

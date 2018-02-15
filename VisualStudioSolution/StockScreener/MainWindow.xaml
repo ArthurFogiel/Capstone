@@ -9,6 +9,7 @@
         Height="600"
         Width="1000"
         Title="Stock Screener"
+        ResizeMode="NoResize"
        >
 
     <Grid x:Name="LayoutRoot">

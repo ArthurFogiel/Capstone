@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:StockScreener.Views"
              xmlns:controls="clr-namespace:StockScreener.Views.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300" DataContext="{Binding ScreenerViewModel, Source={StaticResource Locator}}" >
+             d:DesignHeight="600" d:DesignWidth="1000" DataContext="{Binding ScreenerViewModel, Source={StaticResource Locator}}" >
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -16,15 +16,14 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <DockPanel LastChildFill="True" Visibility="{Binding Path=UserInfoService.LoggedInUser, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource NullToVisibilityCollapsed}}" >
-
+    <DockPanel LastChildFill="True" Visibility="{Binding Path=UserInfoService.LoggedInUser, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource NullToVisibilityCollapsed}}">
         <!-- Datacontext is the same as this: the ScreenerViewModel -->
         <controls:ScreenerParameters DataContext="{Binding}" Margin="10,0,0,0" DockPanel.Dock="Left"/>
 
         <StackPanel DockPanel.Dock="Right">
             <Label Content="Watched Stocks" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" />
             <Border BorderThickness="4" BorderBrush="Black" CornerRadius="3" >
-                <DataGrid ItemsSource="{Binding Path=WatchedStocks}" >
+                <DataGrid ItemsSource="{Binding Path=WatchedStocks}" Height="475" >
                     <DataGrid.Columns>
                         <!-- TODO COMBO BINDING TO TICKER AND CHANGE PERCENT-->
                         <DataGridTextColumn Header="Stock" />

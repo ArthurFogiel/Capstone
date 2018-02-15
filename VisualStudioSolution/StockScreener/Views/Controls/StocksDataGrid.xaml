@@ -16,13 +16,13 @@
     <StackPanel>
         <Label Content="Screened Stocks" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" Grid.Row="0"/>
         <Border BorderThickness="4" BorderBrush="Black" CornerRadius="3" Grid.Row="1" VerticalAlignment="Stretch">
-            <DataGrid ItemsSource="{Binding Path=FilteredStocks}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <DataGrid ItemsSource="{Binding Path=FilteredStocks}" Height="475" HorizontalAlignment="Stretch" AutoGenerateColumns="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Stock" Binding="{Binding Path = Ticker}"/>
                     <DataGridTextColumn Header="Last Price" Binding="{Binding Path = CurrentPrice}"/>
                     <DataGridTextColumn Header="Volume (Million)" Binding="{Binding Path = CurrentVolume}"/>
-                    <DataGridTextColumn Header="Change %" Binding="{Binding Path = CurrentVolume}"/>
-                    <DataGridCheckBoxColumn Header="Watch" Binding="{Binding Path = Watching}"/>
+                    <DataGridTextColumn Header="Change %" Binding="{Binding Path = CurrentPrice}"/>
+                    <!--<DataGridCheckBoxColumn Header="Watch" Binding="{Binding Path = Watching}"/>-->
                 </DataGrid.Columns>
             </DataGrid>
         </Border>

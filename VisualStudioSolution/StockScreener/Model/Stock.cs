@@ -3,11 +3,16 @@ using System.Diagnostics;
 
 namespace StockScreener.Model
 {
+
     /// <summary>
     /// Immplementaion of a stock
     /// </summary>
     public class Stock : Notifyable, IStock
     {
+        //TEMPORARY FOR TESTING
+        public static float price = 0;
+        public static float volume = 0.01f;
+
         /// <summary>
         /// Constructor to create the stock from the alpha vantage return string
         /// To be determined if json or csv
@@ -47,6 +52,12 @@ namespace StockScreener.Model
                 value = value/1000;
             MarketCap = value;
 
+            //COMPLETELY TEMPORARY.  JUST TO TEST WITH A LIST OF STOCKS UNTIL WE CAN PARSE OUTPUT FROM ALPHA VANTAGE
+            price = price + 1;
+            CurrentPrice = price;
+            volume = volume + .1f;
+            CurrentVolume = volume;
+            LastClosePrice = CurrentPrice - 0.5f;
         }
 
         #region IStock Properties
