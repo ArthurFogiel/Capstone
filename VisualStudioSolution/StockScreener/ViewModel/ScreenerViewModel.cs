@@ -24,6 +24,9 @@ namespace StockScreener.ViewModel
         {
             _userService = userService;
             _stockService = stockService;
+
+            //This is temporary for testing.  Ideally FilteredStocks gets updated whenever apply is pressed, or a new user logs in.
+            FilteredStocks = _stockService.Stocks;
         }
 
         /// <summary>
@@ -38,6 +41,7 @@ namespace StockScreener.ViewModel
             get { return _userService; }
         }
 
+        private ObservableCollection<IStock> _filteredStocks = new ObservableCollection<IStock>();
         /// <summary>
         /// The filtered list of stocks using the logged in users settings and the full list of stocks from the model
         /// </summary>
@@ -45,8 +49,12 @@ namespace StockScreener.ViewModel
         {
             get
             {
-                //TODO
-                return null;
+                return _filteredStocks;
+            }
+            private set
+            {
+                _filteredStocks = value;
+                RaisePropertyChanged();
             }
         }
         /// <summary>
