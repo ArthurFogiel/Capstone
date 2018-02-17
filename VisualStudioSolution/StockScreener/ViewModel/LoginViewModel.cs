@@ -86,6 +86,11 @@ namespace StockScreener.ViewModel
 
         public void CreateUserPressed()
         {
+            //TODO Art check this please
+            if (!_userService.CreateUser(UserName))
+            {
+                MessageBox.Show("That username is already taken! Please enter a different username");
+            }
 
         }
 

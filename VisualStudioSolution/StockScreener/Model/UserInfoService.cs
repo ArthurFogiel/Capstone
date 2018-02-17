@@ -56,16 +56,19 @@ namespace StockScreener.Model
         /// <returns></returns>
         public bool LogInUser(string userName)
         {
-            //TESTING for now just fill with something
-            if (userName.ToLower() == "test")
+            //iterate through each list in _users and check for userName match
+
+            foreach (var userInList in _users)
             {
-                LoggedInUser = new User("Test");
-                return true;
-            }
-            else
-            {
-                MessageBox.Show("BAD USER NAME: TESTING: MUST ENTER USERNAME OF \"TEST\"");
-                return false;
+                if (userName.ToLower() == userInList.Name.ToLower())
+                {
+                    return true;
+                }
+                else
+                {
+                    MessageBox.Show("Incorrect username! Please try again!");
+                    return false;
+                }
             }
             //END TESTING
 
