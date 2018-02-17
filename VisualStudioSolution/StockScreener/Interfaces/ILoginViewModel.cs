@@ -13,7 +13,7 @@ namespace StockScreener.Interfaces
         /// <summary>
         /// Do we have a user logged in?  Check if logged in user in the service is not null
         /// </summary>
-        bool IsLoggedIn { get; set; }
+        bool IsLoggedIn { get; }
 
         /// <summary>
         /// Handle button press for logging in

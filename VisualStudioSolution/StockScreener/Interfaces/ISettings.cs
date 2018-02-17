@@ -1,4 +1,6 @@
 ﻿
+using System.Xml.Serialization;
+
 namespace StockScreener.Interfaces
 {
     /// <summary>
@@ -9,7 +11,7 @@ namespace StockScreener.Interfaces
         Millions,
         Billions
     }
-    public interface ISettings
+    public interface ISettings:IXmlSerializable
     {
         /// <summary>
         /// Price min in dollars to filter by

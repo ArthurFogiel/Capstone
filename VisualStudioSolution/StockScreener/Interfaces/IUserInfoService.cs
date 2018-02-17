@@ -1,10 +1,11 @@
 ﻿
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows;
 
 namespace StockScreener.Interfaces
 {
-    public interface IUserInfoService
+    public interface IUserInfoService: INotifyPropertyChanged
     {
         IUser LoggedInUser { get; }
 

@@ -15,14 +15,20 @@ namespace StockScreener.ViewModel
     public class LoginViewModel : ViewModelBase, ILoginViewModel
     {
         private IUserInfoService _userService;
+
+        #region constructor
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
         public LoginViewModel(IUserInfoService userService)
         {
             _userService = userService;
+            //listen to property changes to know when the logged in user changes
+            _userService.PropertyChanged += _userService_PropertyChanged;
         }
+        #endregion
 
+        #region ILoginViewModel
         string _userName="";
         public string UserName
         {
@@ -71,7 +77,13 @@ namespace StockScreener.ViewModel
             }
         }
 
-        public bool IsLoggedIn { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+        /// <summary>
+        /// Is there a logged in user?
+        /// </summary>
+        public bool IsLoggedIn
+        {
+            get { return _userService.LoggedInUser != null; }
+        }
 
         /// <summary>
         /// Code called when login is pressed
@@ -86,21 +98,21 @@ namespace StockScreener.ViewModel
 
         public void CreateUserPressed()
         {
-            //TODO Art check this please
             if (!_userService.CreateUser(UserName))
             {
                 MessageBox.Show("That username is already taken! Please enter a different username");
             }
 
         }
+        #endregion
 
-
-
-        ////public override void Cleanup()
-        ////{
-        ////    // Clean up if needed
-
-        ////    base.Cleanup();
-        ////}
+        private void _userService_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "LoggedInUser")
+            {
+                //Let everyone know the is logged in changed.
+                RaisePropertyChanged("IsLoggedIn");
+            }
+        }
     }
 }

@@ -7,6 +7,7 @@
                     x:Class="StockScreener.Views.Resources.ResourcesDictionary">
     <local:NullToVisibilityVisible x:Key="NullToVisibilityVisible"/>
     <local:NullToVisibilityCollapsed x:Key="NullToVisibilityCollapsed"/>
+    <local:BoolToVisibility x:Key="BoolToVisibility"/>
 
     <SolidColorBrush x:Key="ButtonNormalBorder" Color="#FF707070" />
 

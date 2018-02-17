@@ -1,10 +1,12 @@
 ﻿
+using System.Xml.Serialization;
+
 namespace StockScreener.Interfaces
 {
     /// <summary>
     /// Representation of a stock
     /// </summary>
-    public interface IStock
+    public interface IStock: IXmlSerializable
     {
         /// <summary>
         /// Ticker symbol

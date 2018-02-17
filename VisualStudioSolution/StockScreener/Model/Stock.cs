@@ -1,5 +1,7 @@
 ﻿using StockScreener.Interfaces;
 using System.Diagnostics;
+using System.Xml;
+using System.Xml.Schema;
 
 namespace StockScreener.Model
 {
@@ -168,6 +170,24 @@ namespace StockScreener.Model
             CurrentPrice = stock.CurrentPrice;
             LastClosePrice = stock.LastClosePrice;
             CurrentVolume = stock.CurrentVolume;
+        }
+
+        public XmlSchema GetSchema()
+        {
+            //this should be null
+            return null;
+        }
+
+        public void ReadXml(XmlReader reader)
+        {
+            //see settings.cs readxml for example
+            throw new System.NotImplementedException();
+        }
+
+        public void WriteXml(XmlWriter writer)
+        {
+            //see settings.cs writexml for example
+            throw new System.NotImplementedException();
         }
     }
 }

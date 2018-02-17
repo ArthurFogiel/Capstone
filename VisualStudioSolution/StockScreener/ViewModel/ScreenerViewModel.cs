@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using StockScreener.Interfaces;
@@ -80,7 +81,23 @@ namespace StockScreener.ViewModel
         /// </summary>
         public ICommand Apply => throw new System.NotImplementedException();
 
-        public ICommand LogOut => throw new System.NotImplementedException();
+        private ICommand _logout;
+        public ICommand LogOut
+        {
+            get
+            {
+                if (_logout == null)
+                {
+                    _logout = new CommandHandler(() => LogOutPressed());
+                }
+                return _logout;
+            }
+        }
+
+        private void LogOutPressed()
+        {
+            UserInfoService.LogOffUser();
+        }
 
         ////public override void Cleanup()
         ////{
