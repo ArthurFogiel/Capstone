@@ -91,7 +91,7 @@ namespace StockScreener.Model
 
         public bool SaveUsersToFile(string filePath)
         {
-            //TODO
+            //todo
             throw new System.NotImplementedException();
         }
 
