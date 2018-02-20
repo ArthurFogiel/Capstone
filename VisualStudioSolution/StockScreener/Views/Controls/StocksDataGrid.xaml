@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:StockScreener.ViewModel"
+             xmlns:controls="clr-namespace:StockScreener.Views.Controls"
              mc:Ignorable="d" 
             d:DataContext ="{d:DesignInstance local:ScreenerViewModel, IsDesignTimeCreatable=True}">
     <UserControl.Resources>
@@ -16,13 +17,22 @@
     <StackPanel>
         <Label Content="Screened Stocks" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" Grid.Row="0"/>
         <Border BorderThickness="4" BorderBrush="Black" CornerRadius="3" Grid.Row="1" VerticalAlignment="Stretch">
-            <DataGrid ItemsSource="{Binding Path=FilteredStocks}" Height="475" HorizontalAlignment="Stretch" AutoGenerateColumns="False">
+            <DataGrid ItemsSource="{Binding Path=FilteredStocks}" SelectionMode="Single" Height="475" HorizontalAlignment="Stretch" AutoGenerateColumns="False">
+                <DataGrid.Resources>
+                    <controls:BindingProxyStocks x:Key="proxy" Data="{Binding}" />
+                </DataGrid.Resources>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Stock" Binding="{Binding Path = Ticker}"/>
                     <DataGridTextColumn Header="Last Price" Binding="{Binding Path = CurrentPrice}"/>
                     <DataGridTextColumn Header="Volume (Million)" Binding="{Binding Path = CurrentVolume}"/>
                     <DataGridTextColumn Header="Change %" Binding="{Binding Path = CurrentPrice}"/>
-                    <!--<DataGridCheckBoxColumn Header="Watch" Binding="{Binding Path = Watching}"/>-->
+                    <DataGridTemplateColumn Header="Watch">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="✓"  Command="{Binding Data.WatchCommand,Source={StaticResource proxy}}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=DataContext}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </Border>

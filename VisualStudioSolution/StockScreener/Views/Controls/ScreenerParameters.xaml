@@ -74,9 +74,9 @@
 
                     <Label Content="Volume (Million)" FontWeight="Bold" FontSize="14" Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="3"/>
                     <Label Content="Min"  FontSize="14" Grid.Row="12" Grid.Column="0"/>
-                    <TextBox  Grid.Row="12" Grid.Column="1" Text="{Binding Path =UserInfoService.LoggedInUser.Settings.MarketCapMin}" VerticalContentAlignment="Center"/>
+                    <TextBox  Grid.Row="12" Grid.Column="1" Text="{Binding Path =UserInfoService.LoggedInUser.Settings.VolumeMin}" VerticalContentAlignment="Center"/>
                     <Label Content="Max"  FontSize="15" Grid.Row="14" Grid.Column="0"/>
-                    <TextBox  Grid.Row="14" Grid.Column="1" Text="{Binding Path =UserInfoService.LoggedInUser.Settings.MarketCapMax}" VerticalContentAlignment="Center"/>
+                    <TextBox  Grid.Row="14" Grid.Column="1" Text="{Binding Path =UserInfoService.LoggedInUser.Settings.VolumeMax}" VerticalContentAlignment="Center"/>
 
                     <Button  Grid.Row="16" Grid.Column="0" Content="Apply" Grid.ColumnSpan="3" Padding="5" Command="{Binding Path =Apply}" FontSize="14" Style="{StaticResource GoldButtonStyle}"/>
 
@@ -86,9 +86,9 @@
                         </Rectangle.Fill>
                     </Rectangle>
 
-                    <Button Grid.Row="20" Grid.Column="0" Grid.ColumnSpan="3" Content="Save As Favorite"  FontSize="14" Padding="5" Style="{StaticResource GoldButtonStyle}"/>
+                    <Button Grid.Row="20" Command="{Binding Path=SaveFavorite}" Grid.Column="0" Grid.ColumnSpan="3" Content="Save As Favorite"  FontSize="14" Padding="5" Style="{StaticResource GoldButtonStyle}"/>
 
-                    <Button Grid.Row="22" Grid.Column="0" Grid.ColumnSpan="3" Content="Load Favorite"  FontSize="14" Padding="5" Margin="0,0,0,15" Style="{StaticResource GoldButtonStyle}"/>
+                    <Button Grid.Row="22" Command="{Binding Path=LoadFavorite}"  Grid.Column="0" Grid.ColumnSpan="3" Content="Load Favorite"  FontSize="14" Padding="5" Margin="0,0,0,15" Style="{StaticResource GoldButtonStyle}"/>
                 </Grid>
             </Border>
         </StackPanel>

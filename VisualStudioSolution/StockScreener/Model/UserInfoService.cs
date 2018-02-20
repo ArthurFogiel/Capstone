@@ -132,11 +132,17 @@ namespace StockScreener.Model
             return false;
         }
 
-
-        public bool SaveUsersToFile(string filePath)
+        /// <summary>
+        /// Save users to disk
+        /// </summary>
+        /// <param name="filePath">If empty will use default path</param>
+        /// <returns></returns>
+        public bool SaveUsersToFile(string filePath = "")
         {
             try
             {
+                if (filePath == "")
+                    filePath = userFilePath;
                 Directory.CreateDirectory(Path.GetDirectoryName(filePath));
                 using (var stream = File.OpenWrite(filePath))
                 {

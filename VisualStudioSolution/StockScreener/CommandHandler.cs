@@ -4,6 +4,7 @@ namespace StockScreener
 {
     public class CommandHandler : System.Windows.Input.ICommand
     {
+        private Action<object> _actionWithParam;
         private Action _action;
         private bool _canExecute;
         public CommandHandler(Action action, bool canExecute)
@@ -18,6 +19,17 @@ namespace StockScreener
             _canExecute = true;
         }
 
+        public CommandHandler(Action<object> action, bool canExecute)
+        {
+            _actionWithParam = action;
+            _canExecute = canExecute;
+        }
+        public CommandHandler(Action<object> action)
+        {
+            _actionWithParam = action;
+            _canExecute = true;
+        }
+
         public event EventHandler CanExecuteChanged;
 
         public bool CanExecute(object parameter)
@@ -27,7 +39,12 @@ namespace StockScreener
 
         public void Execute(object parameter)
         {
-            _action();
+            if (parameter == null)
+                _action();
+            else
+                _actionWithParam(parameter);
         }
+
+
     }
 }

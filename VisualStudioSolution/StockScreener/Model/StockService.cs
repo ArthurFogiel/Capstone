@@ -43,7 +43,7 @@ namespace StockScreener.Model
                 while(true)
                 {
                     count++;
-                    Thread.Sleep(100);
+                    Thread.Sleep(200);
                     foreach (var stock in Stocks)
                     {
                         stock.CurrentPrice = count%2 == 0? stock.CurrentPrice -1: stock.CurrentPrice+1;

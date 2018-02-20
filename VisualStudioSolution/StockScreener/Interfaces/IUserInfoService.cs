@@ -43,9 +43,9 @@ namespace StockScreener.Interfaces
         /// <summary>
         /// Save the User list to file.  Return false on failure
         /// </summary>
-        /// <param name="filePath"></param>
+        /// <param name="filePath">Empty param means use default</param>
         /// <returns></returns>
-        bool SaveUsersToFile(string filePath);
+        bool SaveUsersToFile(string filePath = "");
 
     }
 }

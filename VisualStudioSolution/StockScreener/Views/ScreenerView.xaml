@@ -20,16 +20,24 @@
         <!-- Datacontext is the same as this: the ScreenerViewModel -->
         <controls:ScreenerParameters DataContext="{Binding}" Margin="10,0,0,0" DockPanel.Dock="Left"/>
 
-        <StackPanel DockPanel.Dock="Right">
+        <StackPanel DockPanel.Dock="Right" Margin="0,0,10,0">
             <Label Content="Watched Stocks" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" />
             <Border BorderThickness="4" BorderBrush="Black" CornerRadius="3" >
-                <DataGrid ItemsSource="{Binding Path=WatchedStocks}" Height="475" >
+                <DataGrid ItemsSource="{Binding Path=WatchedStocks}" AutoGenerateColumns="False" Height="475" >
+                    <DataGrid.Resources>
+                        <local:BindingProxyStocksView x:Key="proxy" Data="{Binding}" />
+                    </DataGrid.Resources>
                     <DataGrid.Columns>
                         <!-- TODO COMBO BINDING TO TICKER AND CHANGE PERCENT-->
-                        <DataGridTextColumn Header="Stock" />
+                        <DataGridTextColumn Header="Stock" Binding="{Binding Path=Ticker}"/>
+                        <DataGridTextColumn Header="Price" Binding="{Binding Path=CurrentPrice}"/>
                         <!-- TODO Make a button to remove-->
                         <DataGridTemplateColumn Header="Remove">
-
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="X" Command="{Binding Data.RemoveWatchCommand,Source={StaticResource proxy}}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=DataContext}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>

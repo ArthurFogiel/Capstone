@@ -37,5 +37,17 @@ namespace StockScreener.Interfaces
         ICommand Apply { get; }
 
         ICommand LogOut { get; }
-    }
+
+        /// <summary>
+        /// Button in the data grid to add to watch list
+        /// </summary>
+        ICommand WatchCommand { get; }
+
+        /// <summary>
+        /// Button in the data grid to Remove from watch list
+        /// </summary>
+        ICommand RemoveWatchCommand { get; }
+
+
+}
 }
