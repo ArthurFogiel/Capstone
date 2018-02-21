@@ -25,12 +25,14 @@ namespace StockScreener.Model
         [PreferredConstructorAttribute]
         public StockService()
         {
-            //Testing: get microsoft stock
-            //   GetStock("MSFT");
-            //
+            
 
             //Read from nasdaq.com the master list of stocks and initial values
             GenerateStocksFromMasterLists();
+
+            //Testing: get microsoft stock
+            //GetUpdatedStock(Stocks.FirstOrDefault(x=>x.Ticker == "MSFT"));
+            
 
             //TESTING JUST KEEP TOGGLING THE PRICE TO SEE IT MOVE
             int count = 0;
@@ -106,14 +108,14 @@ namespace StockScreener.Model
         {
             try
             {
-                string csvResturn = "";
+                string csvReturn = "";
                 //THIS IS JUST TESTING ON HOW TO GET A STOCK VALUE.  WANTED TO DO IN A PLACE I KNEW WOULD GET CALLED
                 using (var httpClient = new WebClient())
                 {
                     //todo use either csv or json and parse into the IStock object
-                    csvResturn = httpClient.DownloadString(string.Format("https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol={0}&interval=1min&outputsize=compact&apikey=V2K6MPHJVXGETLMF&datatype=csv", input.Ticker));
+                    csvReturn = httpClient.DownloadString(string.Format("https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol={0}&interval=1min&outputsize=compact&apikey=V2K6MPHJVXGETLMF&datatype=csv", input.Ticker));
                     //createa a stock from the value and return it
-                    return new Stock(csvResturn.Split(','), StockStringSource.AlphaVantage, input.Exchange);
+                    return new Stock(csvReturn, input.Exchange);
                 }
             }
             catch (Exception e)
@@ -196,7 +198,7 @@ namespace StockScreener.Model
                     if (items.Length != 9) continue;
                     try
                     {
-                        var stock = new Stock(items, StockStringSource.NasdaqDotCom, exchange);
+                        var stock = new Stock(items, exchange);
                         Stocks.Add(stock);
                     }
                     //Its ok if we fail, it just won't be added.  The stock will post a debug message.
