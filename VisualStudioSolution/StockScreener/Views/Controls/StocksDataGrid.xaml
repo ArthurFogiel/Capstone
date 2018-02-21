@@ -23,7 +23,8 @@
                 </DataGrid.Resources>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Stock" Binding="{Binding Path = Ticker}"/>
-                    <DataGridTextColumn Header="Last Price" Binding="{Binding Path = CurrentPrice}"/>
+                    <DataGridTextColumn Header="Market Cap (Billion)" Binding="{Binding Path = MarketCap}"/>
+                    <DataGridTextColumn Header="Price" Binding="{Binding Path = CurrentPrice}"/>
                     <DataGridTextColumn Header="Volume (Million)" Binding="{Binding Path = CurrentVolume}"/>
                     <DataGridTextColumn Header="Change %" Binding="{Binding Path = CurrentPrice}"/>
                     <DataGridTemplateColumn Header="Watch">

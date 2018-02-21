@@ -3,10 +3,16 @@ using System.Xml.Serialization;
 
 namespace StockScreener.Interfaces
 {
+    public enum ExchangeEnums
+    {
+        NASDAQ,
+        AMEX,
+        NYSE
+    }
     /// <summary>
     /// Representation of a stock
     /// </summary>
-    public interface IStock: IXmlSerializable
+    public interface IStock
     {
         /// <summary>
         /// Ticker symbol
@@ -33,5 +39,9 @@ namespace StockScreener.Interfaces
         /// </summary>
         /// <param name="stock"></param>
         void UpdateFromStock(IStock stock);
+        /// <summary>
+        /// Stock Exchange it belongs to
+        /// </summary>
+        ExchangeEnums Exchange { get; }
     }
 }

@@ -5,7 +5,14 @@ using System.Xml.Schema;
 
 namespace StockScreener.Model
 {
-
+    /// <summary>
+    /// Stock info is in csv format and can come from nasdaq.com or alpha vantage
+    /// </summary>
+    public enum StockStringSource
+    {
+        NasdaqDotCom,
+        AlphaVantage
+    }
     /// <summary>
     /// Immplementaion of a stock
     /// </summary>
@@ -16,50 +23,18 @@ namespace StockScreener.Model
         public static float volume = 0.01f;
 
         /// <summary>
-        /// Constructor to create the stock from the alpha vantage return string
-        /// To be determined if json or csv
+        /// Constructor to create the stock from a csv split line
+        /// THROWS EXCEPTION ON BAD PARSE
         /// </summary>
         /// <param name="response"></param>
-        public Stock(string response)
+        public Stock(string[] splitItems, StockStringSource source, ExchangeEnums exchange)
         {
-            //todo generate a stock from the json or csv response
-        }
+            Exchange = exchange;
 
-        /// <summary>
-        /// Constructor to create from the comma seperated default file
-        /// </summary>
-        /// <param name="ticker"></param>
-        /// <param name="marketCapFromFile"></param>
-        public Stock(string ticker, string marketCapFromFile)
-        {
-            //TODO none of this is tested yet
-            Ticker = ticker;
-            //parse market cap.
-            //unkown case
-            if (marketCapFromFile == "n/a")
-                return;
-            //strip out $ sign 
-            string marketCapStripped = marketCapFromFile.Replace("$", "");
-            //get the units
-            var isBillions = marketCapStripped[marketCapStripped.Length - 1] == 'B';
-
-            //strip out units
-            marketCapStripped = marketCapStripped.Substring(0,marketCapStripped.Length - 1);
-            //parse the float value out
-            float value;
-            if (!float.TryParse(marketCapStripped, out value))
-                return;
-            //If units are millions multiply by 1000 to make it billions (MarketCap is stored in billions)
-            if (!isBillions)
-                value = value/1000;
-            MarketCap = value;
-
-            //COMPLETELY TEMPORARY.  JUST TO TEST WITH A LIST OF STOCKS UNTIL WE CAN PARSE OUTPUT FROM ALPHA VANTAGE
-            price = price + 1;
-            CurrentPrice = price;
-            volume = volume + .1f;
-            CurrentVolume = volume;
-            LastClosePrice = CurrentPrice - 0.5f;
+            if (source == StockStringSource.NasdaqDotCom)
+                PopulateFromNasdaqDotCom(splitItems);
+            else
+                PopulateFromAlphaVantage(splitItems);
         }
 
         #region IStock Properties
@@ -149,6 +124,17 @@ namespace StockScreener.Model
             }
         }
 
+        private ExchangeEnums _exchange;
+        public ExchangeEnums Exchange
+        {
+            get { return _exchange; }
+            private set
+            {
+                _exchange = value;
+                RaisePropertyChanged();
+            }
+        }
+
         #endregion
 
         /// <summary>
@@ -167,27 +153,49 @@ namespace StockScreener.Model
                 Trace.WriteLine(logMessage);
                 return;
             }
+            //Below are only values we get real time updates for
             CurrentPrice = stock.CurrentPrice;
             LastClosePrice = stock.LastClosePrice;
             CurrentVolume = stock.CurrentVolume;
         }
 
-        public XmlSchema GetSchema()
+
+        /// <summary>
+        /// Format is:
+        /// Symbol,Name,LastSale,MarketCap,IPOyear,Sector,industry,Summary Quote,"
+        /// Will THROW EXCEPTION if parse is bad
+        /// </summary>
+        /// <param name="csvLine"></param>
+        private void PopulateFromNasdaqDotCom(string[] splitItems)
         {
-            //this should be null
-            return null;
+            //create an instance of a stock from the items
+            //Directly assume array items, ok to throw exception on failure
+            Ticker = splitItems[0];
+            LastClosePrice = float.Parse(splitItems[2]);
+            CurrentPrice = LastClosePrice;
+            //market cap
+            //strip out $ sign 
+            string marketCapStripped = splitItems[3].Replace("$", "");
+            //get the units
+            var isBillions = marketCapStripped[marketCapStripped.Length - 1] == 'B';
+
+            //strip out units
+            marketCapStripped = marketCapStripped.Substring(0, marketCapStripped.Length - 1);
+            //parse the float value out
+            float value;
+            if (!float.TryParse(marketCapStripped, out value))
+                return;
+            //If units are millions multiply by 1000 to make it billions (MarketCap is stored in billions)
+            if (!isBillions)
+                value = value / 1000;
+            MarketCap = value;
+
         }
 
-        public void ReadXml(XmlReader reader)
-        {
-            //see settings.cs readxml for example
-            throw new System.NotImplementedException();
-        }
+        private void PopulateFromAlphaVantage(string[] splitItems)
+        { 
+            //todo...parse the alphvantage
 
-        public void WriteXml(XmlWriter writer)
-        {
-            //see settings.cs writexml for example
-            throw new System.NotImplementedException();
         }
     }
 }
