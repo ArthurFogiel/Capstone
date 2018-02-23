@@ -7,6 +7,8 @@ namespace StockScreener.Interfaces
     {
         IUserInfoService UserInfoService { get; }
 
+        IStockService StockService { get; }
+
         /// <summary>
         /// Property for the view to see a collection of stocks that are generated from the filter
         /// An observable collection automatically sends events when items are added or removed

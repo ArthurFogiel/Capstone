@@ -37,6 +37,7 @@ namespace StockScreener.ViewModel
             _userService.PropertyChanged += _userService_PropertyChanged;
             //initialize to already logged in user
             MatchWatchedToUser();
+
         }
 
 
@@ -45,6 +46,7 @@ namespace StockScreener.ViewModel
         /// </summary>
         public ScreenerViewModel()
         {
+
         }
 
         #region IStockScreenerViewModel
@@ -52,6 +54,11 @@ namespace StockScreener.ViewModel
         public IUserInfoService UserInfoService
         {
             get { return _userService; }
+        }
+
+        public IStockService StockService
+        {
+            get { return _stockService; }
         }
 
         private ObservableCollection<IStock> _filteredStocks = new ObservableCollection<IStock>();
@@ -278,7 +285,10 @@ namespace StockScreener.ViewModel
                 var stocks = new ObservableCollection<IStock>();
                 foreach (var stock in _userService.LoggedInUser.WatchedStocks)
                 {
-                    stocks.Add(_stockService.Stocks.FirstOrDefault(x => x.Ticker == stock));
+                    var stockReference = _stockService.Stocks.FirstOrDefault(x => x.Ticker == stock);
+                    //Just in case somehow the watched stock no longer exists in the list of stocks
+                    if(stockReference != null)
+                        stocks.Add(stockReference);
                 }
                 WatchedStocks = stocks;
             }
