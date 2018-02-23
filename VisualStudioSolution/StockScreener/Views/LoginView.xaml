@@ -13,9 +13,9 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <DockPanel Height="Auto"  Width="Auto" >
+    <DockPanel Height="Auto"  Width="Auto" Visibility="{Binding Path=StockService.IsInitialized, Converter={StaticResource InverseBoolToVisibility}}">
         <!--Visibility="{Binding Path=IsLoggedIn, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToVisibility}}"-->
-        <Grid VerticalAlignment="Center" HorizontalAlignment="Stretch">
+        <Grid VerticalAlignment="Center" HorizontalAlignment="Stretch" Visibility="{Binding Path=StockService.InitializedSuccessfully, Converter={StaticResource InverseBoolToVisibility}}">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>

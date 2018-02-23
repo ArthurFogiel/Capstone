@@ -15,14 +15,15 @@ namespace StockScreener.ViewModel
     public class LoginViewModel : ViewModelBase, ILoginViewModel
     {
         private IUserInfoService _userService;
-
+        private IStockService _stockservice;
         #region constructor
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
-        public LoginViewModel(IUserInfoService userService)
+        public LoginViewModel(IUserInfoService userService, IStockService stockService)
         {
             _userService = userService;
+            _stockservice = stockService;
             //listen to property changes to know when the logged in user changes
             _userService.PropertyChanged += _userService_PropertyChanged;
         }
@@ -42,7 +43,13 @@ namespace StockScreener.ViewModel
             }
         }
 
-
+        public IStockService StockService
+        {
+            get
+            {
+                return _stockservice;
+            }
+        }
 
         private ICommand _loginCommand;
         /// <summary>

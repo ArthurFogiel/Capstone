@@ -8,6 +8,7 @@
     <local:NullToVisibilityVisible x:Key="NullToVisibilityVisible"/>
     <local:NullToVisibilityCollapsed x:Key="NullToVisibilityCollapsed"/>
     <local:BoolToVisibility x:Key="BoolToVisibility"/>
+    <local:InverseBoolToVisibility x:Key="InverseBoolToVisibility"/>
 
     <SolidColorBrush x:Key="ButtonNormalBorder" Color="#FF707070" />
 
@@ -43,4 +44,8 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+    
+   
+
+
 </ResourceDictionary>

@@ -6,6 +6,10 @@ namespace StockScreener.Interfaces
     public interface ILoginViewModel
     {
         /// <summary>
+        /// StockService reference to know if initialized or not
+        /// </summary>
+        IStockService StockService { get; }
+        /// <summary>
         /// Connected to the text box for the inputted user name
         /// </summary>
         string UserName { get; set; }

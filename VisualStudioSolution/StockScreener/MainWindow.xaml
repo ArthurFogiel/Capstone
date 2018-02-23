@@ -16,6 +16,7 @@
         <Grid.Background>
             <ImageBrush Opacity=".4" ImageSource="Views/Resources/Gold-Mining1.png" />
         </Grid.Background>
+        <views:Initializing/>
         <views:LoginView/>
         <views:ScreenerView/>
     </Grid>
