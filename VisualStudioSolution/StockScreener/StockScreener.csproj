@@ -28,7 +28,7 @@
     <ProductName>StockScreener</ProductName>
     <PublisherName>UMUC Students</PublisherName>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>4</ApplicationRevision>
+    <ApplicationRevision>5</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -125,7 +125,6 @@
     <Compile Include="Model\UserInfoService.cs" />
     <Compile Include="Model\StockService.cs" />
     <Compile Include="Interfaces\IStockService.cs" />
-    <Compile Include="Model\Wrapper.cs" />
     <Compile Include="ViewModel\ScreenerViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="Locator.cs" />
