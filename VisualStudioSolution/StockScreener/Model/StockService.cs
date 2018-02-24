@@ -337,8 +337,8 @@ namespace StockScreener.Model
                         InitializedSuccessfully = true;
                     }
 
-                    Debug.WriteLine("Sleep for a a minute so we don't thrash the server.");
-                    Thread.Sleep(60000);
+                    Debug.WriteLine("Sleep for 5 minutes so we don't thrash the server and anger the IEX gods and they ban us....");
+                    Thread.Sleep(300000);
                 }
             });
         }
