@@ -23,12 +23,12 @@
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0" HorizontalAlignment="Center" Visibility="{Binding Path = StockService.IsInitialized, Converter={StaticResource BoolToVisibility}}">
 
-                <StackPanel Visibility="{Binding Path=StockService.InitializedSuccessfully, Converter={StaticResource BoolToVisibility}}">
+                <StackPanel Visibility="{Binding Path=StockService.InitializedSuccessfully, Converter={StaticResource InverseBoolToVisibility}}">
                     <Label Content="Initializing Stocks" Foreground="Black" FontWeight="Bold" FontSize="18"/>
                     <Label Content="Please Wait" Foreground="Black" HorizontalAlignment="Center" FontWeight="Bold" FontSize="18"/>
                     <controls:Spinner/>
                 </StackPanel>
-                <StackPanel Visibility="{Binding Path=StockService.InitializedSuccessfully, Converter={StaticResource InverseBoolToVisibility}}">
+                <StackPanel Visibility="{Binding Path=StockService.InitializedSuccessfully, Converter={StaticResource BoolToVisibility}}">
                     <Label Content="Failed to retrieve stocks" Foreground="Black" FontWeight="Bold" FontSize="18"/>
                     <Label Content="Please check internet connection and restart the app" Foreground="Black" HorizontalAlignment="Center" FontWeight="Bold" FontSize="18"/>
 

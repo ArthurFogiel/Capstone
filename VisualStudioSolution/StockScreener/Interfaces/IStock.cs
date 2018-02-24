@@ -2,13 +2,7 @@
 using System.Xml.Serialization;
 
 namespace StockScreener.Interfaces
-{
-    public enum ExchangeEnums
-    {
-        NASDAQ,
-        AMEX,
-        NYSE
-    }
+{ 
     /// <summary>
     /// Representation of a stock
     /// </summary>
@@ -18,6 +12,10 @@ namespace StockScreener.Interfaces
         /// Ticker symbol
         /// </summary>
         string Ticker { get;}
+        /// <summary>
+        /// Name
+        /// </summary>
+        string Name { get; }
         /// <summary>
         /// Market Cap in millions
         /// </summary>
@@ -31,17 +29,14 @@ namespace StockScreener.Interfaces
         /// </summary>
         float LastClosePrice { get; set; }
         /// <summary>
+        /// Percent change
+        /// </summary>
+        float PercentChange { get; }
+        /// <summary>
         /// Current volume of shares traded in Millions
         /// </summary>
         float CurrentVolume { get; set; }
-        /// <summary>
-        /// Passin in a stock, update this stocks values from the input
-        /// </summary>
-        /// <param name="stock"></param>
-        void UpdateFromStock(IStock stock);
-        /// <summary>
-        /// Stock Exchange it belongs to
-        /// </summary>
-        ExchangeEnums Exchange { get; }
+
+        void UpdateFromQuote(IQuote quote);
     }
 }

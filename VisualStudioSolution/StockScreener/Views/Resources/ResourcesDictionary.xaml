@@ -9,6 +9,7 @@
     <local:NullToVisibilityCollapsed x:Key="NullToVisibilityCollapsed"/>
     <local:BoolToVisibility x:Key="BoolToVisibility"/>
     <local:InverseBoolToVisibility x:Key="InverseBoolToVisibility"/>
+    <local:PositiveToBrushConverter x:Key="PositiveToBrushConverter"/>
 
     <SolidColorBrush x:Key="ButtonNormalBorder" Color="#FF707070" />
 

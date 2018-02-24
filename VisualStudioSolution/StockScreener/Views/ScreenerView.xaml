@@ -28,14 +28,14 @@
                         <local:BindingProxyStocksView x:Key="proxy" Data="{Binding}" />
                     </DataGrid.Resources>
                     <DataGrid.Columns>
-                        <!-- TODO COMBO BINDING TO TICKER AND CHANGE PERCENT-->
-                        <DataGridTextColumn Header="Stock" Binding="{Binding Path=Ticker}"/>
-                        <DataGridTextColumn Header="Price" Binding="{Binding Path=CurrentPrice}"/>
-                        <!-- TODO Make a button to remove-->
+                        <DataGridTextColumn Header="Stock" Binding="{Binding Path=Ticker}" IsReadOnly="true"/>
+                        <DataGridTextColumn Header="Price" Binding="{Binding Path=CurrentPrice}" IsReadOnly="true"/>
+                        <DataGridTextColumn Header="Change (%)" Binding="{Binding Path = PercentChange}" IsReadOnly="true"/>
+
                         <DataGridTemplateColumn Header="Remove">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button Content="X" Command="{Binding Data.RemoveWatchCommand,Source={StaticResource proxy}}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=DataContext}"/>
+                                    <Button Content="X" Background="red" Command="{Binding Data.RemoveWatchCommand,Source={StaticResource proxy}}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=DataContext}"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>

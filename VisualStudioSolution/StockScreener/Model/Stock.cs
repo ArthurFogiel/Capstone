@@ -17,21 +17,14 @@ namespace StockScreener.Model
         /// THROWS EXCEPTION ON BAD PARSE
         /// </summary>
         /// <param name="response"></param>
-        public Stock(string[] splitItems, ExchangeEnums exchange)
+        public Stock(string ticker, string name)
         {
-            Exchange = exchange;
-            PopulateFromNasdaqDotCom(splitItems);
+            //create an instance of a stock from the items
+            //Directly assume array items, ok to throw exception on failure
+            Ticker = ticker;
+            Name = name;
         }
 
-        /// <summary>
-        /// Pass in return of alphavantage
-        /// </summary>
-        /// <param name="alphaReturn"></param>
-        /// <param name="exchange"></param>
-        public Stock(string alphaReturn)
-        {
-            PopulateFromAlphaVantage(alphaReturn);
-        }
 
         #region IStock Properties
         private string _ticker;
@@ -48,6 +41,22 @@ namespace StockScreener.Model
                 RaisePropertyChanged();
             }
         }
+
+        private string _name;
+        public string Name
+        {
+            get
+            {
+                return _name;
+            }
+
+            private set
+            {
+                _name = value;
+                RaisePropertyChanged();
+            }
+        }
+
 
         private float _marketCap;
         /// <summary>
@@ -120,13 +129,14 @@ namespace StockScreener.Model
             }
         }
 
-        private ExchangeEnums _exchange;
-        public ExchangeEnums Exchange
+        private float _percentChange;
+        public float PercentChange
         {
-            get { return _exchange; }
-            private set
+            get { return _percentChange; }
+            set
             {
-                _exchange = value;
+                if (PercentChange == value) return;
+                _percentChange = value;
                 RaisePropertyChanged();
             }
         }
@@ -137,64 +147,26 @@ namespace StockScreener.Model
         /// Take an input stock and update our values
         /// </summary>
         /// <param name="stock"></param>
-        public void UpdateFromStock(IStock stock)
+        public void UpdateFromQuote(IQuote quote)
         {
             //If our stock ticker is not equal to input just return out
-            if (Ticker != stock.Ticker)
+            if (Ticker != quote.Symbol)
             {
                 //This is bad so assert in debug mode to let developer know.  In release mose its ok just bail out.
-                var logMessage = "Passed in stock ticker does not match current stock in UpdateFromStock.  Current ticker = " + Ticker + " passed in ticker = " + stock.Ticker;
+                var logMessage = "Passed in stock ticker does not match current stock in UpdateFromStock.  Current ticker = " + Ticker + " passed in ticker = " + quote.Symbol;
                 Debug.Assert(false, logMessage);
                 //In release mode just add a trace message so when listening to traces we will see it for debugging
                 Trace.WriteLine(logMessage);
                 return;
             }
-            //Below are only values we get real time updates for
-            CurrentPrice = stock.CurrentPrice;
-            //possible we don't get the volume, in that case don't update
-            if(stock.CurrentVolume != float.MinValue)
-                CurrentVolume = stock.CurrentVolume;
-        }
-
-
-        /// <summary>
-        /// Format is:
-        /// Symbol,Name,LastSale,MarketCap,IPOyear,Sector,industry,Summary Quote,"
-        /// Will THROW EXCEPTION if parse is bad
-        /// </summary>
-        /// <param name="csvLine"></param>
-        private void PopulateFromNasdaqDotCom(string[] splitItems)
-        {
-            //create an instance of a stock from the items
-            //Directly assume array items, ok to throw exception on failure
-            Ticker = splitItems[0];
-            LastClosePrice = float.Parse(splitItems[2]);
-            CurrentPrice = LastClosePrice;
-            //market cap
-            //strip out $ sign 
-            string marketCapStripped = splitItems[3].Replace("$", "");
-            //get the units
-            var isBillions = marketCapStripped[marketCapStripped.Length - 1] == 'B';
-
-            //strip out units
-            marketCapStripped = marketCapStripped.Substring(0, marketCapStripped.Length - 1);
-            //parse the float value out
-            float value;
-            if (!float.TryParse(marketCapStripped, out value))
-                return;
-            //If units are millions multiply by 1000 to make it billions (MarketCap is stored in billions)
-            if (!isBillions)
-                value = value / 1000;
-            MarketCap = value;
-
-        }
-
-        private void PopulateFromAlphaVantage(string alphaReturn)
-        {
-            //todo...parse the alphvantage
-
-            //Here is a normal output by uncommenting  //GetUpdatedStock(Stocks.FirstOrDefault(x => x.Ticker == "MSFT")); in the stock service constructor
-            //"timestamp,open,high,low,close,volume\r\n
+            //note: If equal the setter will throw away
+            CurrentPrice = quote.LatestPrice;
+            PercentChange = quote.ChangePercent;
+            //store in millions
+            CurrentVolume = quote.LatestVolume/1000000;
+            //store in millions
+            MarketCap = quote.MarketCap/1000000;
+            LastClosePrice = quote.PreviousClose;
         }
     }
 }

@@ -30,9 +30,6 @@ namespace StockScreener.ViewModel
             _userService = userService;
             _stockService = stockService;
 
-            //This is temporary for testing.  Ideally FilteredStocks gets updated whenever apply is pressed, or a new user logs in.
-            FilteredStocks = _stockService.Stocks;
-
             //listen to logged in user changes to update the watch list
             _userService.PropertyChanged += _userService_PropertyChanged;
             //initialize to already logged in user
@@ -194,13 +191,59 @@ namespace StockScreener.ViewModel
             }
         }
 
+        private ICommand _apply;
         /// <summary>
         /// When apply is pushed, we want to refresh the FilteredStocks with only stocks from the stock service stocks list that are within
         /// The LoggedInUser.Settings values.
         /// </summary>
-        public ICommand Apply => throw new System.NotImplementedException();
+        public ICommand Apply
+        {
+            get
+            {
+                if (_apply == null)
+                {
+                    _apply = new CommandHandler(() => ApplyPressed());
+                }
+                return _apply;
+            }
+        }
+
+        /// <summary>
+        /// When apply is pressed we want to filter based on settings
+        /// </summary>
+        private void ApplyPressed()
+        {
+            //if somehow no user bail out
+            if (_userService.LoggedInUser == null) return;
+
+            //Get the users settings and use them to filter the stocks
+            var tempList = new ObservableCollection<IStock>();
+            //make a quick reference to the settings
+            var settings = _userService.LoggedInUser.Settings;
+            int multiplier = 0;
+            if (settings.MarketCapUnits == MarketCapUnitsEnum.Millions)
+                multiplier = 1;
+            else
+                multiplier = 1000;
+            foreach (var stock in _stockService.Stocks)
+            {
+                //settings volume is in millions, settings market cap varies based on units.
+                if((stock.MarketCap > (settings.MarketCapMin* multiplier) && stock.MarketCap < (settings.MarketCapMax* multiplier)) &&
+                    (stock.CurrentPrice > settings.PriceMin && stock.CurrentPrice < settings.PriceMax) &&
+                    (stock.CurrentVolume > (settings.VolumeMin) && stock.CurrentVolume < (settings.VolumeMax)))
+                {
+                    tempList.Add(stock);
+                }
+            }
+            FilteredStocks = tempList;
+            //save the user settings to remember the change
+            _userService.SaveUsersToFile();
+        }
 
         private ICommand _logout;
+        /// <summary>
+        /// Log out the user command
+        /// </summary>
         public ICommand LogOut
         {
             get
@@ -213,6 +256,9 @@ namespace StockScreener.ViewModel
             }
         }
 
+        /// <summary>
+        /// Log out the user
+        /// </summary>
         private void LogOutPressed()
         {
             UserInfoService.LogOffUser();
@@ -256,25 +302,33 @@ namespace StockScreener.ViewModel
                 return _removeWatchCommand;
             }
         }
+        /// <summary>
+        /// Remove the watched stock
+        /// </summary>
+        /// <param name="param"></param>
+        private void RemoveWatchPressed(object param)
+        {
+            //remove from the user which will trigger a refresh
+            if(_userService.LoggedInUser.WatchedStocks.Any(x=>x == ((IStock)param).Ticker))
+            {
+                _userService.LoggedInUser.WatchedStocks.Remove(((IStock)param).Ticker);
+                _userService.SaveUsersToFile();
+                MatchWatchedToUser();
+            }
+        }
+
 
         #endregion
 
         #region Private methods
-
-        private void RemoveWatchPressed(object param)
-        {
-            //add the stock to the users settings as watch if not alread
-            if (WatchedStocks.Any(x => x.Ticker == ((IStock)param).Ticker))
-            {
-                WatchedStocks.Remove(WatchedStocks.FirstOrDefault(x => x.Ticker == ((IStock)param).Ticker));
-            }
-        }
 
         private void _userService_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "LoggedInUser")
             {
                 MatchWatchedToUser();
+                //Apply the newly logged in users filters
+                Apply.Execute(null);
             }
         }
 
@@ -287,7 +341,7 @@ namespace StockScreener.ViewModel
                 {
                     var stockReference = _stockService.Stocks.FirstOrDefault(x => x.Ticker == stock);
                     //Just in case somehow the watched stock no longer exists in the list of stocks
-                    if(stockReference != null)
+                    if (stockReference != null)
                         stocks.Add(stockReference);
                 }
                 WatchedStocks = stocks;
