@@ -22,7 +22,10 @@ namespace StockScreener.Interfaces
         /// <summary>
         /// Did we initialize successfully?
         /// </summary>
-        bool InitializedSuccessfully { get;
-        }
+        bool InitializedSuccessfully { get;}
+        /// <summary>
+        /// When initializing,the current progress
+        /// </summary>
+        int InitializeProgressValue { get; }
     }
 }

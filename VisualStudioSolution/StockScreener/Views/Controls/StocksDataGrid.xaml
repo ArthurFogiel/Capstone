@@ -14,47 +14,48 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <StackPanel>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="0">
             <Label Content="Screened Stocks" FontSize="14" FontWeight="Bold"  />
             <Label Content="{Binding ElementName=FilteredStocks, Path=Items.Count}" FontSize="14" FontWeight="Bold"/>
         </StackPanel>
-      
-        <Border BorderThickness="4" BorderBrush="Black" CornerRadius="3" Grid.Row="1" VerticalAlignment="Stretch">
-            <DataGrid ItemsSource="{Binding Path=FilteredStocks}" Name="FilteredStocks"  SelectionMode="Single" Height="475" HorizontalAlignment="Stretch" AutoGenerateColumns="False">
-                <DataGrid.Resources>
-                    <controls:BindingProxyStocks x:Key="proxy" Data="{Binding}" />
-                </DataGrid.Resources>
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Ticker" Binding="{Binding Path = Ticker}" IsReadOnly="true"/>
-                    <DataGridTextColumn Header="Company" Binding="{Binding Path = Name}" IsReadOnly="true"/>
-                    <DataGridTextColumn Binding="{Binding Path = MarketCap,StringFormat={}{0:N}}" IsReadOnly="true">
-                        <DataGridTextColumn.Header>
-                            <StackPanel>
-                                <TextBlock Text="Market Cap"/>
-                                <TextBlock Text=" (Millions)"/>
-                            </StackPanel>
-                        </DataGridTextColumn.Header>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Header="Price ($)" Binding="{Binding Path = CurrentPrice,StringFormat={}{0:N}}" IsReadOnly="true"/>
-                    <DataGridTextColumn Binding="{Binding Path = CurrentVolume,StringFormat={}{0:N}}" IsReadOnly="true">
-                        <DataGridTextColumn.Header>
-                            <StackPanel>
-                                <TextBlock Text=" Volume  "/>
-                                <TextBlock Text="(Millions)"/>
-                            </StackPanel>
-                        </DataGridTextColumn.Header>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Header="Change (%)" Binding="{Binding Path = PercentChange}" IsReadOnly="true"/>
-                    <DataGridTemplateColumn Header="Watch">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button Content="⇒" Background="MediumSeaGreen" Command="{Binding Data.WatchCommand,Source={StaticResource proxy}}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=DataContext}"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                </DataGrid.Columns>
-            </DataGrid>
-        </Border>
-    </StackPanel>
+        <DataGrid Grid.Row="1" ItemsSource="{Binding Path=FilteredStocks}" Name="FilteredStocks" VerticalScrollBarVisibility="Auto"  SelectionMode="Single"  HorizontalAlignment="Stretch" AutoGenerateColumns="False">
+            <DataGrid.Resources>
+                <controls:BindingProxyStocks x:Key="proxy" Data="{Binding}" />
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Ticker" Binding="{Binding Path = Ticker}" IsReadOnly="true"/>
+                <DataGridTextColumn Header="Company" Binding="{Binding Path = Name}" Width="*" IsReadOnly="true"/>
+                <DataGridTextColumn Binding="{Binding Path = MarketCap,StringFormat={}{0:N}}" IsReadOnly="true">
+                    <DataGridTextColumn.Header>
+                        <StackPanel>
+                            <TextBlock Text="Market Cap"/>
+                            <TextBlock Text=" (Millions)"/>
+                        </StackPanel>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Price ($)" Binding="{Binding Path = CurrentPrice,StringFormat={}{0:N}}" IsReadOnly="true"/>
+                <DataGridTextColumn Binding="{Binding Path = CurrentVolume,StringFormat={}{0:N}}" IsReadOnly="true">
+                    <DataGridTextColumn.Header>
+                        <StackPanel>
+                            <TextBlock Text=" Volume  "/>
+                            <TextBlock Text="(Millions)"/>
+                        </StackPanel>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Change (%)" Binding="{Binding Path = PercentChange}" IsReadOnly="true"/>
+                <DataGridTemplateColumn Header="Watch">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="⇒" Background="MediumSeaGreen" Command="{Binding Data.WatchCommand,Source={StaticResource proxy}}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=DataContext}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
 </UserControl>

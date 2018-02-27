@@ -15,7 +15,6 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <DockPanel Height="Auto"  Width="Auto" >
-        <!--Visibility="{Binding Path=IsLoggedIn, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToVisibility}}"-->
         <Grid VerticalAlignment="Center" HorizontalAlignment="Stretch">
             <Grid.RowDefinitions>
                 <RowDefinition/>
@@ -24,9 +23,15 @@
             <StackPanel Grid.Row="0" HorizontalAlignment="Center" Visibility="{Binding Path = StockService.IsInitialized, Converter={StaticResource BoolToVisibility}}">
 
                 <StackPanel Visibility="{Binding Path=StockService.InitializedSuccessfully, Converter={StaticResource InverseBoolToVisibility}}">
-                    <Label Content="Initializing Stocks" Foreground="Black" FontWeight="Bold" FontSize="18"/>
+                    <Label Content="Initializing Stocks" Foreground="Black" FontWeight="Bold" HorizontalAlignment="Center" FontSize="18"/>
                     <Label Content="Please Wait" Foreground="Black" HorizontalAlignment="Center" FontWeight="Bold" FontSize="18"/>
-                    <controls:Spinner/>
+                    <Label Content="Depending on Server and Network Speed" Foreground="Black" HorizontalAlignment="Center" FontWeight="Bold" FontSize="18"/>
+                    <Label Content="This may take 1-3 minutes" Foreground="Black" HorizontalAlignment="Center" FontWeight="Bold" FontSize="18"/>
+                    <!--Inside a grid so we can overlay the text -->
+                    <Grid>
+                        <ProgressBar Name="StatusBar" Minimum="0" Foreground="DarkGoldenrod" Maximum="100"  Value="{Binding Path=StockService.InitializeProgressValue, UpdateSourceTrigger=PropertyChanged}"  Height="20" Width="200" HorizontalAlignment="Center"/>
+                        <TextBlock Text="{Binding ElementName=StatusBar, Path=Value, StringFormat={}{0:0}%}" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Grid>
                 </StackPanel>
                 <StackPanel Visibility="{Binding Path=StockService.InitializedSuccessfully, Converter={StaticResource BoolToVisibility}}">
                     <Label Content="Failed to retrieve stocks" Foreground="Black" FontWeight="Bold" FontSize="18"/>

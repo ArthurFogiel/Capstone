@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:StockScreener.Views"
              xmlns:controls="clr-namespace:StockScreener.Views.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="1000" DataContext="{Binding ScreenerViewModel, Source={StaticResource Locator}}" >
+             d:DesignHeight="1000" d:DesignWidth="1000" DataContext="{Binding ScreenerViewModel, Source={StaticResource Locator}}" >
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -15,35 +15,53 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <DockPanel LastChildFill="True" Grid.Row="0" Visibility="{Binding Path=UserInfoService.LoggedInUser, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource NullToVisibilityCollapsed}}">
 
-    <DockPanel LastChildFill="True" Visibility="{Binding Path=UserInfoService.LoggedInUser, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource NullToVisibilityCollapsed}}">
-        <!-- Datacontext is the same as this: the ScreenerViewModel -->
-        <controls:ScreenerParameters DataContext="{Binding}" Margin="10,0,0,0" DockPanel.Dock="Left"/>
-
-        <StackPanel DockPanel.Dock="Right" Margin="0,0,10,0">
-            <Label Content="Watched Stocks" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" />
-            <Border BorderThickness="4" BorderBrush="Black" CornerRadius="3" >
-                <DataGrid ItemsSource="{Binding Path=WatchedStocks}" AutoGenerateColumns="False" Height="475" >
-                    <DataGrid.Resources>
-                        <local:BindingProxyStocksView x:Key="proxy" Data="{Binding}" />
-                    </DataGrid.Resources>
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Stock" Binding="{Binding Path=Ticker}" IsReadOnly="true"/>
-                        <DataGridTextColumn Header="Price" Binding="{Binding Path=CurrentPrice}" IsReadOnly="true"/>
-                        <DataGridTextColumn Header="Change (%)" Binding="{Binding Path = PercentChange}" IsReadOnly="true"/>
-
-                        <DataGridTemplateColumn Header="Remove">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Button Content="X" Background="red" Command="{Binding Data.RemoveWatchCommand,Source={StaticResource proxy}}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=DataContext}"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
+            <Border BorderThickness="4" BorderBrush="Black" CornerRadius="3" Padding="10,0,10,0" Grid.Row="1" Grid.Column="0" DockPanel.Dock="Left" Margin="10,10,0,0">
+                <controls:ScreenerParameters HorizontalAlignment="Left"  DataContext="{Binding}"/>
             </Border>
-        </StackPanel>
-        <Button DockPanel.Dock="Bottom" HorizontalAlignment="Center" Command="{Binding Path=LogOut}"  Style="{StaticResource GoldButtonStyle}" Content="Log Out" Width="100" Margin="0,0,0,10" />
-        <controls:StocksDataGrid DataContext="{Binding}" Margin="10,0,10,0" DockPanel.Dock="Left"/>
-    </DockPanel>
+
+            <Border BorderThickness="4" BorderBrush="Black" CornerRadius="3" HorizontalAlignment="Right"  Grid.Row="1" Grid.Column="4" DockPanel.Dock="Right" Margin="0,10,10,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Content="Watched Stocks" Grid.Row="0" FontSize="14" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" />
+
+                    <DataGrid ItemsSource="{Binding Path=WatchedStocks}" AutoGenerateColumns="False" Grid.Row="1" >
+                        <DataGrid.Resources>
+                            <local:BindingProxyStocksView x:Key="proxy" Data="{Binding}" />
+                        </DataGrid.Resources>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Stock" Binding="{Binding Path=Ticker}" IsReadOnly="true"/>
+                            <DataGridTextColumn Header="Price" Binding="{Binding Path=CurrentPrice}" IsReadOnly="true"/>
+                            <DataGridTextColumn Header="Change (%)" Binding="{Binding Path = PercentChange}" IsReadOnly="true"/>
+
+                            <DataGridTemplateColumn Header="Remove">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="X" Foreground="red" FontWeight="Bold" Command="{Binding Data.RemoveWatchCommand,Source={StaticResource proxy}}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=DataContext}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </Border>
+
+            <Border BorderThickness="4" BorderBrush="Black" CornerRadius="3" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="2" DockPanel.Dock="Left" Margin="10,10,10,0">
+                <controls:StocksDataGrid DataContext="{Binding}"  DockPanel.Dock="Left"/>
+            </Border>
+
+        </DockPanel>
+        <Button Grid.Row="1" Visibility="{Binding Path=UserInfoService.LoggedInUser, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource NullToVisibilityCollapsed}}"
+                Grid.Column="0" Grid.ColumnSpan="5" HorizontalAlignment="Center" Command="{Binding Path=LogOut}"  Style="{StaticResource GoldButtonStyle}" Content="Log Out" Width="100" Margin="0,10,0,10" />
+    </Grid>
 </UserControl>

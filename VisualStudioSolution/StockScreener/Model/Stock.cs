@@ -161,7 +161,7 @@ namespace StockScreener.Model
             }
             //note: If equal the setter will throw away
             CurrentPrice = quote.LatestPrice;
-            PercentChange = quote.ChangePercent;
+            PercentChange = quote.ChangePercent * 100;
             //store in millions
             CurrentVolume = quote.LatestVolume/1000000;
             //store in millions

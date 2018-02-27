@@ -37,6 +37,7 @@ namespace StockScreener.Model
                 //Ask for all the stock tickers supported and initialize the list
                 try
                 {
+                    UpdateInitialProgress(0);
                     GenerateStocksFromMasterLists();
                     IsOnline = true;
                     //Don't set initialized, we want to query everything once.
@@ -126,6 +127,20 @@ namespace StockScreener.Model
             }
         }
 
+        private int _initializeProgressValue;
+        public int InitializeProgressValue
+        {
+            get
+            {
+                return _initializeProgressValue;
+            }
+            set
+            {
+                _initializeProgressValue = value;
+                RaisePropertyChanged();
+            }
+        }
+
         #endregion
 
 
@@ -162,6 +177,7 @@ namespace StockScreener.Model
             Debug.WriteLine("Time to get all tickers = " + stopWatch.ElapsedMilliseconds + " ms.");
             Debug.WriteLine("");
             stopWatch.Reset();
+            UpdateInitialProgress(10);
 
             stopWatch.Start();
             //Go and create stocks and add to our list of stocks
@@ -292,9 +308,11 @@ namespace StockScreener.Model
                     }
 
                     stopWatch.Start();
+                    int count = 10;
                     //iterate over groups and update each
                     foreach (var group in tickerGroups)
                     {
+                        count++;
                         try
                         {
                             UpdateStocks(group);
@@ -323,6 +341,11 @@ namespace StockScreener.Model
                             Debug.WriteLine(e.InnerException);
                             Debug.WriteLine("");
                             //otherwise could be bad parse, just continue
+                        }
+                        //If not initiailized yet, set the progress
+                        if (!IsInitialized)
+                        {
+                            UpdateInitialProgress(count < 100 ? count : 100);
                         }
                     }
                     stopWatch.Stop();
@@ -421,6 +444,19 @@ namespace StockScreener.Model
             Debug.WriteLine("");
             Debug.WriteLine("Completed http request for list of stocks in: " + stopWatch.ElapsedMilliseconds + " ms.  For group: " + tickers[0]);
             Debug.WriteLine("");
+        }
+
+        /// <summary>
+        /// We need to be on the UI thread to update this value
+        /// </summary>
+        /// <param name="value"></param>
+        private void UpdateInitialProgress(int value)
+        {
+            //Get on the UI thread to update the stock list
+            Application.Current.Dispatcher.Invoke((Action)(() =>
+            {
+                InitializeProgressValue = value;
+            }));
         }
         #endregion
     }
