@@ -6,6 +6,8 @@
         xmlns:ignore="http://www.galasoft.ch/ignore"
         xmlns:views="clr-namespace:StockScreener.Views"
         mc:Ignorable="d ignore"
+        Height="600"
+        Width="1000"
         Title="Stock Screener"
        >
 
