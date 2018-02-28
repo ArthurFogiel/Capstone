@@ -28,7 +28,7 @@
     <ProductName>StockScreener</ProductName>
     <PublisherName>UMUC Students</PublisherName>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>5</ApplicationRevision>
+    <ApplicationRevision>8</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -213,6 +213,9 @@
     </None>
     <AppDesigner Include="Properties\" />
     <None Include="StockScreener_TemporaryKey.pfx" />
+    <Content Include="Views\Resources\Stock Screener User Guide.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -233,7 +236,26 @@
   <ItemGroup>
     <Resource Include="ibhhoauozyyaqccqivmf_vYu_icon.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Views\Resources\help.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <PublishFile Include="Views\Resources\Stock Screener User Guide.pdf">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

@@ -8,7 +8,7 @@
         mc:Ignorable="d ignore"
         Height="600"
         Width="1000"
-        Title="Stock Screener"
+        Title="{Binding LoginViewModel.AppTitle, Source={StaticResource Locator}}"
        >
 
     <Grid x:Name="LayoutRoot">
@@ -18,5 +18,23 @@
         <views:Initializing/>
         <views:LoginView/>
         <views:ScreenerView/>
+        <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,5,5" Background="Transparent" Command="{Binding ScreenerViewModel.OpenHelp, Source={StaticResource Locator}}">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="Transparent">
+                                    <ContentPresenter/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Button.Style>
+            <StackPanel>
+                <Image Source="Views/Resources/help.png" Height="30" Width="30"/>
+            </StackPanel>
+        </Button>
     </Grid>
 </Window>

@@ -92,6 +92,20 @@ namespace StockScreener.ViewModel
             get { return _userService.LoggedInUser != null; }
         }
 
+        public string AppTitle
+        {
+            get
+            {
+                if (!IsLoggedIn)
+                    return "Stock Screener: User: No User Logged In";
+                else if (_userService.LoggedInUser != null)
+                {
+                    return "Stock Screener: User: " + _userService.LoggedInUser.Name;
+                }
+                return "";
+            }
+        }
+
         /// <summary>
         /// Code called when login is pressed
         /// </summary>
@@ -105,6 +119,12 @@ namespace StockScreener.ViewModel
 
         public void CreateUserPressed()
         {
+            if (UserName == "")
+            {
+                MessageBox.Show("User Name cannot be empty!  Please enter a user name");
+                return;
+            }
+
             if (!_userService.CreateUser(UserName))
             {
                 MessageBox.Show("That username is already taken! Please enter a different username");
@@ -119,6 +139,8 @@ namespace StockScreener.ViewModel
             {
                 //Let everyone know the is logged in changed.
                 RaisePropertyChanged("IsLoggedIn");
+                //Update the title
+                RaisePropertyChanged("AppTitle");
             }
         }
     }

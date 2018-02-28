@@ -50,5 +50,10 @@ namespace StockScreener.Interfaces
         /// </summary>
         ICommand RemoveWatchCommand { get; }
 
+        /// <summary>
+        /// Open the help pdf
+        /// </summary>
+        ICommand OpenHelp { get; }
+
     }
 }

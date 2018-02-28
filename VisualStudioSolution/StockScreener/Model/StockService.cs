@@ -51,7 +51,7 @@ namespace StockScreener.Model
                     IsOnline = false;
                     InitializedSuccessfully = false;
                 }
-                catch (Exception e)
+                catch
                 {
                     InitializedSuccessfully = false;
                 }
@@ -424,7 +424,7 @@ namespace StockScreener.Model
                 {
                     quote = JsonConvert.DeserializeObject<Quote>(value.ToString());
                 }
-                catch (Exception e)
+                catch
                 {
                     //log and ignore to continue
                     Debug.WriteLine("Failed to deserialize JSON quote: " + value.ToString());

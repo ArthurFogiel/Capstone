@@ -28,5 +28,10 @@ namespace StockScreener.Interfaces
         /// Handle create user button press
         /// </summary>
         ICommand CreateUser { get; }
+
+        /// <summary>
+        /// App title contains the user name if logged in
+        /// </summary>
+        string AppTitle { get; }
     }
 }

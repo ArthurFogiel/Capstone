@@ -175,7 +175,11 @@ namespace StockScreener.Model
 
         public bool CreateUser(string user)
         {
+            //check for empty
+            if (user == "") return false;
+
             var newUser = new User(user);
+          
             foreach (var knownUser in _users)
             {
                 if (newUser.Name.ToLower() == knownUser.Name.ToLower())

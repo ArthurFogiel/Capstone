@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -131,7 +132,7 @@ namespace StockScreener.ViewModel
                         }
                     }
                 }
-                catch (Exception e)
+                catch
                 {
                     MessageBox.Show("Failed to save the settings to file.  File PATH = " + saveFileDialog1.FileName);
                 }
@@ -184,12 +185,37 @@ namespace StockScreener.ViewModel
                         }
                     }
                 }
-                catch (Exception e)
+                catch
                 {
                     MessageBox.Show("Failed to read the settings file: " + openFileDialog1.FileName);
                 }
             }
         }
+
+        private ICommand _openHelp;
+        public ICommand OpenHelp
+        {
+            get
+            {
+                if (_openHelp == null)
+                {
+                    _openHelp = new CommandHandler(() => OpenHelpPressed());
+                }
+                return _openHelp;
+            }
+        }
+
+        private void OpenHelpPressed()
+        {
+            string path = System.Reflection.Assembly.GetExecutingAssembly().Location;
+            //once you have the path you get the directory with:
+            var directory = Path.GetDirectoryName(path);
+            directory += "\\Views\\Resources\\Stock Screener User Guide.pdf";
+            //If we got here, user hit enter so pop up file explorer to exe path
+            Process.Start(directory);
+        }
+
+
 
         private ICommand _apply;
         /// <summary>
