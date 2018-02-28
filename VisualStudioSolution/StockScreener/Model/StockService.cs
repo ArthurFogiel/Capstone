@@ -296,7 +296,7 @@ namespace StockScreener.Model
                 while (true)
                 {
 
-                    //if the time is outside of 9am - 5pm easter M - F there is no way we will get values so bail after as long as we initialized once
+                    //if the time is outside of 9am - 4pm easter M - F there is no way we will get values so bail after as long as we initialized once
                     if (!MarketOpen() && IsInitialized)
                     {
                         Debug.WriteLine("");

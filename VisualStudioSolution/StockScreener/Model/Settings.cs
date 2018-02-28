@@ -8,7 +8,7 @@ namespace StockScreener.Model
     public class Settings : Notifyable, ISettings
     {
         //Default value is 5
-        private float _priceMin = 5;
+        private float _priceMin = 0;
         public float PriceMin
         {
             get
@@ -22,7 +22,7 @@ namespace StockScreener.Model
             }
         }
         //Default to 10
-        private float _priceMax = 10;
+        private float _priceMax = 20;
         public float PriceMax
         {
             get
@@ -37,7 +37,7 @@ namespace StockScreener.Model
         }
 
 
-        public float _marketCapMin = 500;
+        public float _marketCapMin = 0;
         public float MarketCapMin
         {
             get
@@ -51,7 +51,7 @@ namespace StockScreener.Model
             }
         }
 
-        private float _marketCapMax = 1000;
+        private float _marketCapMax = 500;
         public float MarketCapMax
         {
             get
@@ -65,7 +65,7 @@ namespace StockScreener.Model
             }
         }
 
-        private MarketCapUnitsEnum _marketCapUnitsEnum = MarketCapUnitsEnum.Millions;
+        private MarketCapUnitsEnum _marketCapUnitsEnum = MarketCapUnitsEnum.Billions;
         public MarketCapUnitsEnum MarketCapUnits
         {
             get { return _marketCapUnitsEnum; }
@@ -76,7 +76,7 @@ namespace StockScreener.Model
             }
         }
 
-        private float _volumeMin = 500;
+        private float _volumeMin = 0;
         public float VolumeMin
         {
             get
@@ -90,7 +90,7 @@ namespace StockScreener.Model
             }
         }
 
-        private float _volumeMax = 1000;
+        private float _volumeMax = 10000;
         public float VolumeMax
         {
             get
