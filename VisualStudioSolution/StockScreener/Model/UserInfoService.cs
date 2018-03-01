@@ -55,6 +55,17 @@ namespace StockScreener.Model
             }
         }
 
+        private bool _failedUserLoadOrSave;
+        public bool FailedUserLoadOrSave
+        {
+            get { return _failedUserLoadOrSave; }
+            private set
+            {
+                _failedUserLoadOrSave = value;
+                RaisePropertyChanged();
+            }
+        }
+
         /// <summary>
         /// Populate the list of users from a file
         /// </summary>
@@ -102,11 +113,13 @@ namespace StockScreener.Model
                         }
                     }
                 }
+                FailedUserLoadOrSave = false;
                 return true;
             }
             catch (Exception e)
             {
                 Trace.WriteLine(e.InnerException);
+                FailedUserLoadOrSave = true;
             }
             return false;
         }
@@ -157,12 +170,14 @@ namespace StockScreener.Model
                         writer.WriteEndElement();
                     }
                 }
+                FailedUserLoadOrSave = false;
                 return true;
             }
             //On exception write out to the trace and return false;
             catch (Exception e)
             {
                 Trace.WriteLine(e.InnerException);
+                FailedUserLoadOrSave = true;
             }
 
             return false;

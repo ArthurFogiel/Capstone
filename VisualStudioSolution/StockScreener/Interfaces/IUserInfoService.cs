@@ -47,5 +47,10 @@ namespace StockScreener.Interfaces
         /// <returns></returns>
         bool SaveUsersToFile(string filePath = "");
 
+        /// <summary>
+        /// Property that indicates if there are issues with loading/saving the file
+        /// </summary>
+        bool FailedUserLoadOrSave { get; }
+
     }
 }

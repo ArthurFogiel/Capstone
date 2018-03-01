@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
@@ -26,7 +27,11 @@ namespace StockScreener.ViewModel
             _stockservice = stockService;
             //listen to property changes to know when the logged in user changes
             _userService.PropertyChanged += _userService_PropertyChanged;
+            //see if we have any failures reading/writing to disk
+            CheckSaveReadErrors();
         }
+
+        
         #endregion
 
         #region ILoginViewModel
@@ -141,6 +146,18 @@ namespace StockScreener.ViewModel
                 RaisePropertyChanged("IsLoggedIn");
                 //Update the title
                 RaisePropertyChanged("AppTitle");
+            }
+            if(e.PropertyName == "FailedUserLoadOrSave")
+            {
+                CheckSaveReadErrors();
+            }
+        }
+
+        private void CheckSaveReadErrors()
+        {
+            if(_userService.FailedUserLoadOrSave)
+            {
+                MessageBox.Show("Failed to Read/Save the user file to disk.  Ensure read/write permissions are set on the folder at: " + Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + "\\Screener\\");
             }
         }
     }

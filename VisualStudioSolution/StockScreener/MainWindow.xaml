@@ -8,6 +8,7 @@
         mc:Ignorable="d ignore"
         Height="600"
         Width="1000"
+        WindowStartupLocation="CenterScreen"
         Title="{Binding LoginViewModel.AppTitle, Source={StaticResource Locator}}"
        >
 
