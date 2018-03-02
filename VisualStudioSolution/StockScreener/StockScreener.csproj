@@ -27,7 +27,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ProductName>StockScreener</ProductName>
     <PublisherName>CMSC 495</PublisherName>
-    <ApplicationRevision>10</ApplicationRevision>
+    <ApplicationRevision>11</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -222,9 +222,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Views\Resources\Gold-Mining1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="tickers_cap.txt" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
